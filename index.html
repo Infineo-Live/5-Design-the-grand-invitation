@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinio: Grand Invitation</title>
+    <link rel="stylesheet" href="css/layout.css?v=2">
+    <link rel="stylesheet" href="css/ui.css?v=2">
+    <link rel="stylesheet" href="css/animations.css?v=2">
+</head>
+<body>
+    <div class="background-image"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="game-window">
+        <div id="start-screen" class="screen active">
+            <div class="title-container">
+                <img src="assets/images/title.png" alt="Grand Invitation" class="title-img">
+            </div>
+            <div class="start-btn-container" id="start-game-btn">
+                <img src="assets/images/start-btn.png" alt="Start Journey" class="start-btn-img">
+            </div>
+        </div>
+
+        <div id="gameplay-screen" class="screen">
+
+            <div class="scroll-container" id="scroll-wrapper">
+                <img src="assets/images/invite-template-1.png" alt="Royal Parchment" class="scroll-base" id="scroll-parchment">
+                
+                <div class="interactive-layer">
+                    <div class="socket gem-tl" data-socket="tl"></div>
+                    <div class="socket gem-tr" data-socket="tr"></div>
+                    <div class="socket gem-bl" data-socket="bl"></div>
+                    <div class="socket gem-br" data-socket="br"></div>
+                    <div class="socket crown-top" data-socket="ct"></div>
+                    <div class="socket crown-bottom" data-socket="cb"></div>
+
+                    <div class="placed-item gem-tl" id="placed-tl"></div>
+                    <div class="placed-item gem-tr" id="placed-tr"></div>
+                    <div class="placed-item gem-bl" id="placed-bl"></div>
+                    <div class="placed-item gem-br" id="placed-br"></div>
+                    <div class="placed-item crown-top" id="placed-ct"></div>
+                    <div class="placed-item crown-bottom" id="placed-cb"></div>
+                </div>
+
+                <div class="gem-selection-overlay" id="gem-overlay">
+                    <div class="selection-gem-item ruby stone-pos-1" data-gem="ruby">
+                        <img src="assets/images/ruby.png" alt="Ruby" class="selection-gem-img">
+                    </div>
+                    <div class="selection-gem-item sapphire stone-pos-2" data-gem="sapphire">
+                        <img src="assets/images/saphire.png" alt="Sapphire" class="selection-gem-img">
+                    </div>
+                    <div class="selection-gem-item emerald stone-pos-3" data-gem="emerald">
+                        <img src="assets/images/emerald.png" alt="Emerald" class="selection-gem-img">
+                    </div>
+                    <div class="selection-gem-item ruby stone-pos-4" data-gem="ruby">
+                        <img src="assets/images/ruby.png" alt="Ruby" class="selection-gem-img">
+                    </div>
+                    <div class="selection-gem-item sapphire stone-pos-5" data-gem="sapphire">
+                        <img src="assets/images/saphire.png" alt="Sapphire" class="selection-gem-img">
+                    </div>
+                    <div class="selection-gem-item emerald stone-pos-6" data-gem="emerald">
+                        <img src="assets/images/emerald.png" alt="Emerald" class="selection-gem-img">
+                    </div>
+                </div>
+
+                <div class="crown-selection-overlay" id="crown-overlay">
+                    <div class="selection-crown-item crown-pos-1" data-crown="crown">
+                        <img src="assets/images/crown-1.png" alt="Royal Crown" class="selection-crown-img">
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-shelf">
+                <div class="action-btn disabled" id="btn-ruby">
+                    <img src="assets/images/ruby-btn.png" alt="Gem Placement" class="btn-icon">
+                </div>
+                <div class="action-btn disabled" id="btn-crown">
+                    <img src="assets/images/crown-btn.png" alt="Crown Placement" class="btn-icon">
+                </div>
+                <div class="action-btn disabled" id="btn-border">
+                    <img src="assets/images/frame-btn.png" alt="Assemble Border" class="btn-icon">
+                </div>
+            </div>
+        </div>
+
+        <div id="cinematic-layer">
+            <div class="cinematic-scroll" id="rolling-scroll">
+                <div class="cinematic-cylinder" id="cylinder-core"></div>
+                <div class="cinematic-half cinematic-top-half">
+                    <img src="assets/images/invite-template-2.png" alt="Parchment Upper" class="cinematic-top-img">
+                </div>
+                <div class="cinematic-half cinematic-bottom-half">
+                    <img src="assets/images/invite-template-2.png" alt="Parchment Lower" class="cinematic-bottom-img">
+                </div>
+            </div>
+        </div>
+
+        <div id="celebration-screen" class="screen">
+            <canvas class="celebration-canvas" id="rain-canvas"></canvas>
+            <div class="celebration-character-container" id="celebration-character">
+                <img src="assets/images/celebration_laughing_kubera.png" alt="Laughing Kubera" class="celebration-img">
+            </div>
+            <div class="celebration-text-container" id="celebration-text">
+                <h2 class="celebration-title">Invitation Complete!</h2>
+                <p class="celebration-subtitle">You have assembled Kubera's grand invitation scroll</p>
+                <button class="restart-btn" id="btn-restart">Restart Journey</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/stateManager.js"></script>
+</body>
+</html>

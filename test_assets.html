@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Viewer</title>
+    <style>
+        body {
+            background-color: #1e1e24;
+            color: #f5f5fa;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 2rem;
+        }
+        h1 { text-align: center; color: #ffd700; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background-color: #2a2a35;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 4px;
+            background: #3a3a4a;
+            margin-bottom: 1rem;
+        }
+        .name { font-weight: bold; color: #ffd700; word-break: break-all; }
+        .dimensions { font-size: 0.85rem; color: #aaa; margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <h1>Infinio: Grand Invitation Assets</h1>
+    <div class="grid" id="grid"></div>
+
+    <script>
+        const assets = [
+            'assets/images/main-bg.png',
+            'assets/images/title.png',
+            'assets/images/start-btn.png',
+            'assets/images/invite-template-1.png',
+            'assets/images/invite-template-2.png',
+            'assets/images/ruby-btn.png',
+            'assets/images/ruby.png',
+            'assets/images/saphire.png',
+            'assets/images/emerald.png',
+            'assets/images/crown-btn.png',
+            'assets/images/crown-1.png',
+            'assets/images/frame-btn.png'
+        ];
+
+        const grid = document.getElementById('grid');
+        assets.forEach(path => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const img = document.createElement('img');
+            img.src = path;
+            img.onload = () => {
+                dimensions.textContent = `${img.naturalWidth} x ${img.naturalHeight} px`;
+            };
+            
+            const name = document.createElement('div');
+            name.className = 'name';
+            name.textContent = path.split('/').pop();
+            
+            const dimensions = document.createElement('div');
+            dimensions.className = 'dimensions';
+            dimensions.textContent = 'Loading...';
+            
+            card.appendChild(img);
+            card.appendChild(name);
+            card.appendChild(dimensions);
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>

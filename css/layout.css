@@ -1,0 +1,451 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+html,
+body {
+    background-color: var(--color-deep-space);
+    color: var(--color-text-light);
+    font-family: var(--font-ui);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bg-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/images/main-bg.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform 10s ease-out;
+}
+
+.game-window {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    container-type: size;
+    container-name: game;
+    z-index: 2;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3cqh 6cqw;
+    z-index: 5;
+}
+
+.screen.active {
+    display: flex;
+}
+
+#start-screen {
+    justify-content: center;
+    background: rgba(11, 5, 20, 0.4);
+}
+
+.title-container {
+    width: 85%;
+    max-width: 100cqh;
+    height: auto;
+    max-height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 6;
+}
+
+.start-btn-container {
+    width: 75%;
+    max-width: 50cqh;
+    height: 30%;
+    margin-top: 10cqh;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
+#gameplay-screen {
+    padding: 3cqh 4cqw;
+}
+
+
+.scroll-container {
+    position: relative;
+    height: 80cqh;
+    aspect-ratio: 2 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    margin: auto;
+}
+
+.scroll-base {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.5s ease;
+}
+
+.interactive-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 12;
+}
+
+.socket {
+    position: absolute;
+    width: 8cqh;
+    height: 8cqh;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 15;
+}
+
+.placed-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transform: scale(0);
+    z-index: 16;
+}
+
+.side-shelf {
+    position: absolute;
+    left: 30cqh;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22cqh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4cqh;
+    z-index: 20;
+    background: none;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.action-btn {
+    width: 20cqh;
+    height: 20cqh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.gem-selection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.selection-gem-item {
+    position: absolute;
+    width: 9cqh;
+    height: 9cqh;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-45cqh, 0) rotate(-360deg) scale(0);
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.25), opacity 0.5s ease;
+}
+
+.gem-selection-overlay.active .selection-gem-item {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.gem-selection-overlay.active .stone-pos-1 {
+    transform: translate(0, 0) rotate(-15deg) scale(1);
+}
+
+.gem-selection-overlay.active .stone-pos-2 {
+    transform: translate(0, 0) rotate(12deg) scale(1);
+}
+
+.gem-selection-overlay.active .stone-pos-3 {
+    transform: translate(0, 0) rotate(-25deg) scale(1);
+}
+
+.gem-selection-overlay.active .stone-pos-4 {
+    transform: translate(0, 0) rotate(20deg) scale(1);
+}
+
+.gem-selection-overlay.active .stone-pos-5 {
+    transform: translate(0, 0) rotate(-10deg) scale(1);
+}
+
+.gem-selection-overlay.active .stone-pos-6 {
+    transform: translate(0, 0) rotate(35deg) scale(1);
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(3) {
+    transition-delay: 0.25s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(4) {
+    transition-delay: 0.35s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(5) {
+    transition-delay: 0.45s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(6) {
+    transition-delay: 0.55s;
+}
+
+.stone-pos-1 {
+    left: 20%;
+    top: 53%;
+}
+
+.stone-pos-2 {
+    left: 48%;
+    top: 57%;
+}
+
+.stone-pos-3 {
+    left: 44%;
+    top: 32%;
+}
+
+.stone-pos-4 {
+    left: 19%;
+    top: 40%;
+}
+
+.stone-pos-5 {
+    left: 58%;
+    top: 45%;
+}
+
+.stone-pos-6 {
+    left: 65%;
+    top: 56%;
+}
+
+.crown-selection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+.selection-crown-item {
+    position: absolute;
+    width: 11cqh;
+    height: 9cqh;
+    border-radius: 1.5cqh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-45cqh, 0) rotate(-360deg) scale(0);
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.25), opacity 0.5s ease;
+}
+
+.crown-selection-overlay.active .selection-crown-item {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+.crown-selection-overlay.active .selection-crown-item:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.crown-pos-1 {
+    left: 46%;
+    top: 75%;
+}
+
+#cinematic-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(11, 5, 20, 0);
+    transition: background-color 1s ease;
+}
+
+#cinematic-layer.active {
+    background: rgba(11, 5, 20, 0.9);
+}
+
+.cinematic-scroll {
+    position: relative;
+    height: 80cqh;
+    aspect-ratio: 2 / 3;
+    opacity: 0;
+    transform: scale(0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cinematic-scroll.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.cinematic-half {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.cinematic-top-half {
+    height: 50%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.cinematic-bottom-half {
+    height: 50%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.cinematic-top-img {
+    width: 100%;
+    height: 200%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+}
+
+.cinematic-bottom-img {
+    width: 100%;
+    height: 200%;
+    object-fit: contain;
+    position: absolute;
+    bottom: 0;
+}
+
+.cinematic-cylinder {
+    position: absolute;
+    width: 100%;
+    height: 12cqh;
+    border-radius: 0.5cqw;
+    opacity: 0;
+    transform: scaleX(0.95);
+    z-index: 35;
+}
+
+#celebration-screen {
+    justify-content: center;
+    gap: 4cqh;
+}
+
+.celebration-character-container {
+    width: 70%;
+    height: auto;
+    max-height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0);
+    z-index: 41;
+}
+
+.celebration-text-container {
+    text-align: center;
+    transform: translateY(5cqh);
+    opacity: 0;
+    z-index: 42;
+}
+
+.celebration-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 40;
+    pointer-events: none;
+}

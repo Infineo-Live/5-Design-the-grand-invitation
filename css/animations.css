@@ -1,0 +1,176 @@
+.start-btn-container {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.start-btn-container:hover {
+    transform: scale(1.08);
+}
+
+.start-btn-container:active {
+    transform: scale(0.95);
+}
+
+.start-btn-img {
+    animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.title-container {
+    animation: titleFloat 6s ease-in-out infinite;
+}
+
+.scroll-container {
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.socket::before {
+    transition: all 0.3s ease;
+}
+
+.socket.active::before {
+    border-color: var(--color-gold);
+    animation: socketGlow 1.5s ease-in-out infinite;
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.socket.highlighted::before {
+    border-color: var(--color-gold-bright);
+    box-shadow: 0 0 1.5cqw var(--color-gold), inset 0 0 1cqw var(--color-gold);
+    transform: scale(1.1);
+}
+
+.placed-item {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+}
+
+.placed-item.placed {
+    transform: scale(1);
+}
+
+.placed-item.fading {
+    opacity: 0;
+    transform: scale(1.1);
+}
+
+.action-btn {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+
+.action-btn:hover {
+    transform: translateY(-0.8cqh);
+}
+
+.action-btn:active {
+    transform: translateY(-0.2cqh);
+}
+
+.action-btn:hover .btn-icon {
+    filter: drop-shadow(0 0.8cqh 1.5cqh rgba(212, 175, 55, 0.6));
+}
+
+.gem-selection-overlay {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+
+.selection-gem-item:hover {
+    transform: scale(1.08);
+}
+
+.selection-gem-item:active {
+    transform: scale(0.95);
+}
+
+.crown-selection-overlay {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+
+.selection-crown-item:hover {
+    transform: scale(1.08);
+}
+
+.selection-crown-item:active {
+    transform: scale(0.95);
+}
+
+.cinematic-scroll {
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cinematic-half {
+    transition: height 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.cinematic-scroll.rolled .cinematic-half {
+    height: 0%;
+}
+
+.cinematic-scroll.rolled .cinematic-cylinder {
+    opacity: 1;
+    animation: cylinderRollUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1) forwards;
+}
+
+.cinematic-scroll.rocket .cinematic-cylinder {
+    animation: cylinderRocket 1.2s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+.celebration-character-container.active {
+    animation: characterPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, characterFloat 5s ease-in-out infinite 0.8s;
+}
+
+.celebration-text-container.active {
+    animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.restart-btn {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.restart-btn:hover {
+    transform: scale(1.08) translateY(-0.3cqh);
+    box-shadow: 0 1cqh 2.5cqh rgba(212, 175, 55, 0.5);
+}
+
+.restart-btn:active {
+    transform: scale(0.95) translateY(0);
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-1.5cqh) rotate(1deg); }
+}
+
+@keyframes characterFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1cqh); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { filter: drop-shadow(0 0.8cqh 1.5cqh rgba(0, 0, 0, 0.6)) brightness(1); }
+    50% { filter: drop-shadow(0 1.2cqh 2.5cqh rgba(212, 175, 55, 0.7)) brightness(1.15); }
+}
+
+@keyframes socketGlow {
+    0%, 100% { box-shadow: 0 0 0.5cqw rgba(212, 175, 55, 0.3); }
+    50% { box-shadow: 0 0 2cqw rgba(212, 175, 55, 0.7); }
+}
+
+@keyframes cylinderRollUp {
+    0% { transform: scaleX(0.95) scaleY(0); }
+    100% { transform: scaleX(0.95) scaleY(1); }
+}
+
+@keyframes cylinderRocket {
+    0% { transform: scaleX(0.95) translateY(0) rotate(0deg); opacity: 1; }
+    30% { transform: scaleX(0.95) translateY(2cqh) rotate(2deg); opacity: 1; }
+    100% { transform: scaleX(0.8) translateY(-120cqh) rotate(-15deg); opacity: 0; }
+}
+
+@keyframes characterPop {
+    0% { transform: scale(0) rotate(-10deg); }
+    70% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes fadeInUp {
+    0% { transform: translateY(4cqh); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
