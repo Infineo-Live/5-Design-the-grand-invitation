@@ -42,6 +42,8 @@ export function changeGameState(nextState) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Choose a gem from the bottom shelf to place');
         updateActionButtons();
+        const bubble = document.getElementById('scroll-instruction-bubble');
+        if (bubble) bubble.classList.add('active');
     }
     
     if (nextState === GAME_STATES.CROWN_PHASE) {
@@ -59,10 +61,14 @@ export function changeGameState(nextState) {
     }
     
     if (nextState === GAME_STATES.FINALE_CINEMATIC) {
+        const bubble = document.getElementById('scroll-instruction-bubble');
+        if (bubble) bubble.classList.remove('active');
         triggerCinematicSequence();
     }
     
     if (nextState === GAME_STATES.CELEBRATION) {
+        const bubble = document.getElementById('scroll-instruction-bubble');
+        if (bubble) bubble.classList.remove('active');
         document.getElementById('celebration-screen').classList.add('active');
         initializeCelebrationCanvas();
         animateCelebrationRain();
@@ -76,12 +82,12 @@ export function changeGameState(nextState) {
 }
 
 export function setInstructionText(text) {
-    const banner = document.getElementById('ui-instruction');
-    if (!banner) return;
-    banner.style.opacity = 0;
+    const bubbleText = document.getElementById('bubble-text');
+    if (!bubbleText) return;
+    bubbleText.style.opacity = 0;
     setTimeout(() => {
-        banner.textContent = text;
-        banner.style.opacity = 1;
+        bubbleText.textContent = text;
+        bubbleText.style.opacity = 1;
     }, 250);
 }
 

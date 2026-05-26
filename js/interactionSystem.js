@@ -1,4 +1,4 @@
-import { progressionState, checkGemsPhaseCompletion, checkCrownsPhaseCompletion, executeBorderTransformation, resetEntireGame } from './progressionController.js';
+import { progressionState, checkGemsPhaseCompletion, checkCrownsPhaseCompletion, executeBorderTransformation } from './progressionController.js';
 import { playSynthesizedSound, initializeAudio } from './animationController.js';
 import { GEM_ASSETS, spawnParticleExplosion, resizeBackgroundCanvas, initializeCelebrationCanvas } from './assetController.js';
 import { currentGameState, changeGameState, setInstructionText } from './stateManager.js';
@@ -306,8 +306,7 @@ export function registerEventHandlers() {
             }
         });
     });
-    
-    document.getElementById('btn-restart').addEventListener('click', resetEntireGame);
+
     
     window.addEventListener('resize', () => {
         resizeBackgroundCanvas();

@@ -459,3 +459,19 @@ body {
     z-index: 40;
     pointer-events: none;
 }
+
+#scroll-instruction-bubble {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+#scroll-instruction-bubble .speech-bubble-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 22cqh;
+}

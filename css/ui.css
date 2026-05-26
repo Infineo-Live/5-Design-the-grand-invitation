@@ -245,15 +245,4 @@
     text-shadow: 0 0.2cqh 0.5cqh rgba(0,0,0,0.5);
 }
 
-.restart-btn {
-    padding: 1.5cqh 5cqw;
-    font-family: var(--font-royal);
-    font-size: 2.8cqw;
-    font-weight: 700;
-    color: var(--color-royal-purple);
-    background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
-    border: none;
-    border-radius: 4cqw;
-    cursor: pointer;
-    box-shadow: 0 0.6cqh 2cqh rgba(212, 175, 55, 0.3);
-}
+

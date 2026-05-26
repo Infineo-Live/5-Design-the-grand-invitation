@@ -1,6 +1,6 @@
 import { changeGameState, setInstructionText } from './stateManager.js';
 import { playSynthesizedSound, initializeAudio } from './animationController.js';
-import { spawnParticleExplosion, stopCelebrationRain } from './assetController.js';
+import { spawnParticleExplosion } from './assetController.js';
 
 export const progressionState = {
     placedGemsCount: 0,
@@ -68,43 +68,4 @@ export function executeBorderTransformation() {
     }, 300);
 }
 
-export function resetEntireGame() {
-    initializeAudio();
-    playSynthesizedSound('click');
-    
-    stopCelebrationRain();
-    
-    progressionState.placedGemsCount = 0;
-    progressionState.placedCrownsCount = 0;
-    
-    Object.keys(progressionState.socketsState).forEach(key => {
-        progressionState.socketsState[key].filled = false;
-        progressionState.socketsState[key].type = null;
-    });
-    
-    document.querySelectorAll('.placed-item').forEach(item => {
-        item.classList.remove('placed', 'fading');
-        item.style.backgroundImage = 'none';
-    });
-    
-    document.querySelectorAll('.socket').forEach(socket => {
-        socket.classList.remove('active', 'highlighted', 'locked');
-    });
-    
-    document.getElementById('scroll-parchment').src = 'assets/images/invite-template-1.png';
-    document.getElementById('gameplay-screen').style.opacity = 1;
-    document.getElementById('celebration-character').classList.remove('active');
-    document.getElementById('celebration-text').classList.remove('active');
-    
-    document.getElementById('gem-overlay').classList.remove('active');
-    document.getElementById('crown-overlay').classList.remove('active');
-    
-    document.querySelectorAll('.selection-gem-item, .selection-crown-item').forEach(item => {
-        item.classList.remove('placed-from-menu', 'selected');
-        item.style.transform = '';
-        item.style.transition = '';
-        item.style.opacity = '';
-    });
-    
-    changeGameState('start_screen');
-}
+
