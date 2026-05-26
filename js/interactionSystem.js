@@ -49,7 +49,7 @@ function selectCrownItem(element) {
     element.classList.add('selected');
     
     selectedDecorationType = 'crown';
-    selectedDecorationColor = 'gold';
+    selectedDecorationColor = element.dataset.crown;
     
     highlightEmptyCrownSockets();
 }
@@ -187,10 +187,11 @@ function placeCrownInSocket(socketId, socketElement) {
     }
     
     progressionState.socketsState[socketId].filled = true;
-    progressionState.socketsState[socketId].type = 'gold';
+    progressionState.socketsState[socketId].type = selectedDecorationColor;
     
     const placedItem = document.getElementById(`placed-${socketId}`);
-    placedItem.style.backgroundImage = "url('assets/images/crown-1.png')";
+    const crownImg = selectedDecorationColor || 'crown-1';
+    placedItem.style.backgroundImage = `url('assets/images/${crownImg}.png')`;
     placedItem.style.transform = 'translate(-50%, -50%) scale(0)';
     placedItem.style.opacity = '0';
     placedItem.style.transition = 'none';
@@ -281,8 +282,10 @@ export function registerEventHandlers() {
         });
     });
     
-    document.querySelector('.selection-crown-item').addEventListener('click', function() {
-        selectCrownItem(this);
+    document.querySelectorAll('.selection-crown-item').forEach(item => {
+        item.addEventListener('click', function() {
+            selectCrownItem(this);
+        });
     });
     
     document.querySelectorAll('.socket').forEach(socket => {

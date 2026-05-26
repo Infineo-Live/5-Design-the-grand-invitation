@@ -90,10 +90,10 @@ body {
 }
 
 .start-btn-container {
-    width: 75%;
+    width: 85%;
     max-width: 50cqh;
-    height: 30%;
-    margin-top: 10cqh;
+    height: 28%;
+    margin-top: 2cqh;
     cursor: pointer;
     position: relative;
     z-index: 10;
@@ -307,6 +307,7 @@ body {
     border: none;
     box-shadow: none;
 }
+
 .selection-crown-item {
     position: absolute;
     width: 11cqh;
@@ -332,8 +333,17 @@ body {
     transition-delay: 0.05s;
 }
 
+.crown-selection-overlay.active .selection-crown-item:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
 .crown-pos-1 {
-    left: 46%;
+    left: 36%;
+    top: 75%;
+}
+
+.crown-pos-2 {
+    left: 56%;
     top: 75%;
 }
 
