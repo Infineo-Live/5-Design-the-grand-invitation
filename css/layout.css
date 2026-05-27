@@ -326,7 +326,7 @@ body {
 .crown-selection-overlay.active .selection-crown-item {
     opacity: 1;
     pointer-events: auto;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate(0, 0) rotate(var(--crown-rot, 0deg)) scale(1);
 }
 
 .crown-selection-overlay.active .selection-crown-item:nth-child(1) {
@@ -338,13 +338,19 @@ body {
 }
 
 .crown-pos-1 {
-    left: 36%;
-    top: 75%;
+    left: 16%;
+    top: 25%;
+    width: 16cqh;
+    height: 16cqh;
+    --crown-rot: 18deg;
 }
 
 .crown-pos-2 {
     left: 56%;
-    top: 75%;
+    top: 25%;
+    width: 16cqh;
+    height: 16cqh;
+    --crown-rot: -15deg;
 }
 
 #cinematic-layer {
@@ -401,20 +407,25 @@ body {
     align-items: flex-end;
 }
 
-.cinematic-top-img {
+.cinematic-scroll-content {
+    position: absolute;
     width: 100%;
     height: 200%;
-    object-fit: contain;
-    position: absolute;
+    left: 0;
+}
+
+.cinematic-top-content {
     top: 0;
 }
 
-.cinematic-bottom-img {
-    width: 100%;
-    height: 200%;
-    object-fit: contain;
-    position: absolute;
+.cinematic-bottom-content {
     bottom: 0;
+}
+
+.cinematic-base-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .cinematic-cylinder {

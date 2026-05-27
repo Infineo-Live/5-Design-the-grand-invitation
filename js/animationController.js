@@ -205,6 +205,21 @@ export function triggerCinematicSequence() {
     const cinematicLayer = document.getElementById('cinematic-layer');
     const rollingScroll = document.getElementById('rolling-scroll');
     
+    const interactiveLayer = gameplayScreen.querySelector('.interactive-layer');
+    if (interactiveLayer) {
+        const topContent = cinematicLayer.querySelector('.cinematic-top-content');
+        const bottomContent = cinematicLayer.querySelector('.cinematic-bottom-content');
+        if (topContent && bottomContent) {
+            const oldTop = topContent.querySelector('.interactive-layer');
+            if (oldTop) oldTop.remove();
+            const oldBottom = bottomContent.querySelector('.interactive-layer');
+            if (oldBottom) oldBottom.remove();
+            
+            topContent.appendChild(interactiveLayer.cloneNode(true));
+            bottomContent.appendChild(interactiveLayer.cloneNode(true));
+        }
+    }
+    
     gameplayScreen.style.transition = 'opacity 0.6s ease';
     gameplayScreen.style.opacity = 0;
     

@@ -43,10 +43,6 @@ export function executeBorderTransformation() {
     
     document.getElementById('btn-border').classList.add('disabled');
     
-    document.querySelectorAll('.placed-item').forEach(item => {
-        item.classList.add('fading');
-    });
-    
     setTimeout(() => {
         const scrollParchment = document.getElementById('scroll-parchment');
         scrollParchment.style.opacity = 0;
