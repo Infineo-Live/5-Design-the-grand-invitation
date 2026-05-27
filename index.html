@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinio: Grand Invitation</title>
-    <link rel="stylesheet" href="css/layout.css?v=2">
-    <link rel="stylesheet" href="css/ui.css?v=2">
-    <link rel="stylesheet" href="css/speechBubble.css">
-    <link rel="stylesheet" href="css/animations.css?v=2">
+    <link rel="stylesheet" href="css/layout.css?v=6">
+    <link rel="stylesheet" href="css/ui.css?v=6">
+    <link rel="stylesheet" href="css/speechBubble.css?v=6">
+    <link rel="stylesheet" href="css/animations.css?v=6">
 </head>
 <body>
-    <div class="background-image"></div>
+    <div class="background-image start-bg"></div>
+    <div class="background-image game-bg"></div>
+    <div class="background-image result-bg"></div>
     <canvas id="bg-canvas"></canvas>
 
     <div class="game-window">
@@ -99,29 +101,18 @@
         </div>
 
         <div id="cinematic-layer">
-            <div class="cinematic-scroll" id="rolling-scroll">
-                <div class="cinematic-cylinder" id="cylinder-core"></div>
-                <div class="cinematic-half cinematic-top-half">
-                    <div class="cinematic-scroll-content cinematic-top-content">
-                        <img src="assets/images/invite-template-2.png" alt="Parchment Upper" class="cinematic-base-img">
-                    </div>
-                </div>
-                <div class="cinematic-half cinematic-bottom-half">
-                    <div class="cinematic-scroll-content cinematic-bottom-content">
-                        <img src="assets/images/invite-template-2.png" alt="Parchment Lower" class="cinematic-base-img">
-                    </div>
-                </div>
+            <div class="video-frame-container">
+                <img src="assets/images/vid-frame-1.png" alt="Frame 1" class="vid-frame active" id="vid-frame-1">
+                <img src="assets/images/vid-frame-2.png" alt="Frame 2" class="vid-frame" id="vid-frame-2">
+                <img src="assets/images/vid-frame-3.png" alt="Frame 3" class="vid-frame" id="vid-frame-3">
+                <img src="assets/images/vid-frame-4.png" alt="Frame 4" class="vid-frame" id="vid-frame-4">
             </div>
         </div>
 
         <div id="celebration-screen" class="screen">
             <canvas class="celebration-canvas" id="rain-canvas"></canvas>
-            <div class="celebration-character-container" id="celebration-character">
-                <img src="assets/images/celebration_laughing_kubera.png" alt="Laughing Kubera" class="celebration-img">
-            </div>
-            <div class="celebration-text-container" id="celebration-text">
-                <h2 class="celebration-title">Invitation Complete!</h2>
-                <p class="celebration-subtitle">You have assembled Kubera's grand invitation scroll</p>
+            <div class="result-text-container" id="celebration-text">
+                <img src="assets/images/result-text.png" alt="Invitation Assembled Successfully" class="result-text-img">
             </div>
         </div>
     </div>

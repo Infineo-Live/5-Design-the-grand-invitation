@@ -32,11 +32,14 @@ export function changeGameState(nextState) {
     }
     
     if (nextState === GAME_STATES.START_SCREEN) {
+        document.body.classList.remove('game-started');
+        document.body.classList.remove('game-ended');
         document.getElementById('start-screen').classList.add('active');
         document.getElementById('bg-canvas').style.display = 'block';
     }
     
     if (nextState === GAME_STATES.SCROLL_ENTRY) {
+        document.body.classList.add('game-started');
         document.getElementById('gameplay-screen').classList.add('active');
         const scrollWrapper = document.getElementById('scroll-wrapper');
         scrollWrapper.style.transform = 'translateY(800px) scale(0.5)';
@@ -81,14 +84,17 @@ export function changeGameState(nextState) {
     if (nextState === GAME_STATES.CELEBRATION) {
         const bubble = document.getElementById('scroll-instruction-bubble');
         if (bubble) bubble.classList.remove('active');
+        document.body.classList.add('game-ended');
         document.getElementById('celebration-screen').classList.add('active');
         initializeCelebrationCanvas();
         animateCelebrationRain();
-        playSynthesizedSound('fanfare');
         
         setTimeout(() => {
-            document.getElementById('celebration-character').classList.add('active');
-            document.getElementById('celebration-text').classList.add('active');
+            const charContainer = document.getElementById('celebration-character');
+            if (charContainer) charContainer.classList.add('active');
+            
+            const textContainer = document.getElementById('celebration-text');
+            if (textContainer) textContainer.classList.add('active');
         }, 300);
     }
 }

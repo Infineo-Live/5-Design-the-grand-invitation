@@ -35,11 +35,44 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../assets/images/main-bg.png');
     background-size: cover;
     background-position: center;
     z-index: 0;
-    transition: transform 10s ease-out;
+    transition: opacity 1.5s ease-in-out, transform 10s ease-out;
+}
+
+.background-image.start-bg {
+    background-image: url('../assets/images/main-bg.png');
+    opacity: 1;
+}
+
+.background-image.game-bg {
+    background-image: url('../assets/images/game-bg.png');
+    opacity: 0;
+}
+
+.background-image.result-bg {
+    background-image: url('../assets/images/result-bg.png');
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 1.5s ease-in-out, transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.game-started .background-image.start-bg {
+    opacity: 0;
+}
+
+body.game-started .background-image.game-bg {
+    opacity: 1;
+}
+
+body.game-ended .background-image.game-bg {
+    opacity: 0;
+}
+
+body.game-ended .background-image.result-bg {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .game-window {
@@ -61,16 +94,22 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 3cqh 6cqw;
     z-index: 5;
+    transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out, transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .screen.active {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 #start-screen {
@@ -78,6 +117,13 @@ body {
     padding-top: 5.4cqh;
     padding-bottom: 7.6cqh;
     background: rgba(11, 5, 20, 0.4);
+}
+
+body.game-started #start-screen {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.05);
+    pointer-events: none;
 }
 
 .title-container {
@@ -97,11 +143,17 @@ body {
     height: 28%;
     cursor: pointer;
     position: relative;
+    top: -6cqh;
     z-index: 10;
 }
 
 #gameplay-screen {
     padding: 3cqh 4cqw;
+    transform: scale(0.95);
+}
+
+#gameplay-screen.active {
+    transform: scale(1);
 }
 
 
@@ -114,6 +166,7 @@ body {
     align-items: center;
     z-index: 10;
     margin: auto;
+    filter: drop-shadow(0 1.5cqh 3cqh rgba(0, 0, 0, 0.45));
 }
 
 .scroll-base {
@@ -200,8 +253,8 @@ body {
 
 .selection-gem-item {
     position: absolute;
-    width: 9cqh;
-    height: 9cqh;
+    width: 12cqh;
+    height: 12cqh;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -209,7 +262,7 @@ body {
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
-    transform: translate(-45cqh, 0) rotate(-360deg) scale(0);
+    transform: translate(-67.5cqh, 0) rotate(-360deg) scale(0);
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.25), opacity 0.5s ease;
 }
 
@@ -267,32 +320,32 @@ body {
 }
 
 .stone-pos-1 {
-    left: 20%;
-    top: 53%;
+    left: 80%;
+    top: 58%;
 }
 
 .stone-pos-2 {
-    left: 48%;
-    top: 57%;
+    left: 130%;
+    top: 62%;
 }
 
 .stone-pos-3 {
-    left: 44%;
-    top: 32%;
+    left: 105%;
+    top: 25%;
 }
 
 .stone-pos-4 {
-    left: 19%;
-    top: 40%;
+    left: 100%;
+    top: 42%;
 }
 
 .stone-pos-5 {
-    left: 58%;
-    top: 45%;
+    left: 145%;
+    top: 38%;
 }
 
 .stone-pos-6 {
-    left: 65%;
+    left: 168%;
     top: 56%;
 }
 
@@ -339,18 +392,18 @@ body {
 }
 
 .crown-pos-1 {
-    left: 16%;
+    left: 96%;
     top: 25%;
-    width: 16cqh;
-    height: 16cqh;
+    width: 17cqh;
+    height: 17cqh;
     --crown-rot: 18deg;
 }
 
 .crown-pos-2 {
-    left: 56%;
-    top: 25%;
-    width: 16cqh;
-    height: 16cqh;
+    left: 126%;
+    top: 45%;
+    width: 22cqh;
+    height: 22cqh;
     --crown-rot: -15deg;
 }
 
@@ -366,77 +419,44 @@ body {
     justify-content: center;
     align-items: center;
     background: rgba(11, 5, 20, 0);
-    transition: background-color 1s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: background-color 0.8s ease, opacity 0.8s ease, visibility 0.8s ease;
 }
 
 #cinematic-layer.active {
     background: rgba(11, 5, 20, 0.9);
+    opacity: 1;
+    visibility: visible;
 }
 
-.cinematic-scroll {
+.video-frame-container {
     position: relative;
     height: 80cqh;
     aspect-ratio: 2 / 3;
-    opacity: 0;
-    transform: scale(0.9);
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    filter: drop-shadow(0 1.5cqh 3cqh rgba(0, 0, 0, 0.6));
 }
 
-.cinematic-scroll.active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.cinematic-half {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.cinematic-top-half {
-    height: 50%;
-    display: flex;
-    align-items: flex-start;
-}
-
-.cinematic-bottom-half {
-    height: 50%;
-    display: flex;
-    align-items: flex-end;
-}
-
-.cinematic-scroll-content {
+.vid-frame {
     position: absolute;
-    width: 100%;
-    height: 200%;
-    left: 0;
-}
-
-.cinematic-top-content {
     top: 0;
-}
-
-.cinematic-bottom-content {
-    bottom: 0;
-}
-
-.cinematic-base-img {
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.3s ease-in-out, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
 }
 
-.cinematic-cylinder {
-    position: absolute;
-    width: 100%;
-    height: 12cqh;
-    border-radius: 0.5cqw;
-    opacity: 0;
-    transform: scaleX(0.95);
-    z-index: 35;
+.vid-frame.active {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 2;
 }
 
 #celebration-screen {
@@ -455,11 +475,23 @@ body {
     z-index: 41;
 }
 
-.celebration-text-container {
-    text-align: center;
+.result-text-container {
+    width: 90%;
+    max-width: 60cqh;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transform: translateY(5cqh);
     opacity: 0;
     z-index: 42;
+}
+
+.result-text-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 1cqh 2cqh rgba(0, 0, 0, 0.65));
 }
 
 .celebration-canvas {

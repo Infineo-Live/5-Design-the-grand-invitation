@@ -231,33 +231,10 @@
     filter: drop-shadow(0 0 1cqh var(--color-gold)) drop-shadow(0 0.4cqh 0.6cqh rgba(0, 0, 0, 0.45));
 }
 
-.cinematic-cylinder {
-    background: linear-gradient(to bottom, #d4af37 0%, #aa8410 40%, #ffd700 65%, #8a6405 100%);
-    box-shadow: 0 1cqh 2.5cqh rgba(0, 0, 0, 0.8), inset 0 0.2cqh 0.5cqh rgba(255, 255, 255, 0.4), inset 0 -0.2cqh 0.5cqh rgba(0, 0, 0, 0.4);
-}
 
-.cinematic-cylinder::before,
-.cinematic-cylinder::after {
-    content: '';
-    position: absolute;
-    top: -1.5cqh;
-    width: 4cqw;
-    height: 15cqh;
-    background: radial-gradient(circle, #ffd700 30%, #b8860b 80%, #553d00 100%);
-    border-radius: 50%;
-    box-shadow: 0 0.5cqh 1.5cqh rgba(0, 0, 0, 0.5);
-}
-
-.cinematic-cylinder::before {
-    left: -1.5cqw;
-}
-
-.cinematic-cylinder::after {
-    right: -1.5cqw;
-}
 
 #celebration-screen {
-    background: radial-gradient(circle, rgba(40, 15, 65, 0.8) 0%, rgba(11, 5, 20, 0.95) 100%);
+    background: transparent;
 }
 
 .celebration-img {
