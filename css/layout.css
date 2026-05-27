@@ -74,15 +74,17 @@ body {
 }
 
 #start-screen {
-    justify-content: center;
+    justify-content: space-between;
+    padding-top: 5.4cqh;
+    padding-bottom: 7.6cqh;
     background: rgba(11, 5, 20, 0.4);
 }
 
 .title-container {
-    width: 85%;
-    max-width: 100cqh;
+    width: 95%;
+    max-width: 120cqh;
     height: auto;
-    max-height: 60%;
+    max-height: 70cqh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,7 +95,6 @@ body {
     width: 85%;
     max-width: 50cqh;
     height: 28%;
-    margin-top: 2cqh;
     cursor: pointer;
     position: relative;
     z-index: 10;
