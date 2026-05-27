@@ -44,6 +44,9 @@
 }
 
 .speech-bubble-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 22cqh;
     opacity: 0;
     transform: translate(-50%, -50%) scale(0);
     transform-origin: bottom center;

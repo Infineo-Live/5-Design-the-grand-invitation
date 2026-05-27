@@ -57,8 +57,7 @@ export function changeGameState(nextState) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Choose a gem from the bottom shelf to place');
         updateActionButtons();
-        const bubble = document.getElementById('scroll-instruction-bubble');
-        if (bubble) bubble.classList.add('active');
+        showInstructionBubble('gems-button-bubble');
     }
     
     if (nextState === GAME_STATES.CROWN_PHASE) {
@@ -66,6 +65,7 @@ export function changeGameState(nextState) {
         setInstructionText('Select the royal crown to cap the handles');
         toggleGemOverlay(false);
         updateActionButtons();
+        showInstructionBubble('crown-button-bubble');
     }
     
     if (nextState === GAME_STATES.BORDER_PHASE) {
@@ -73,17 +73,16 @@ export function changeGameState(nextState) {
         setInstructionText('Press Assemble to finalize the border magic');
         toggleCrownOverlay(false);
         updateActionButtons();
+        showInstructionBubble('scroll-instruction-bubble');
     }
     
     if (nextState === GAME_STATES.FINALE_CINEMATIC) {
-        const bubble = document.getElementById('scroll-instruction-bubble');
-        if (bubble) bubble.classList.remove('active');
+        showInstructionBubble(null);
         triggerCinematicSequence();
     }
     
     if (nextState === GAME_STATES.CELEBRATION) {
-        const bubble = document.getElementById('scroll-instruction-bubble');
-        if (bubble) bubble.classList.remove('active');
+        showInstructionBubble(null);
         document.body.classList.add('game-ended');
         document.getElementById('celebration-screen').classList.add('active');
         initializeCelebrationCanvas();
@@ -97,6 +96,39 @@ export function changeGameState(nextState) {
             if (textContainer) textContainer.classList.add('active');
         }, 300);
     }
+}
+
+export function showInstructionBubble(activeBubbleId) {
+    const speechBubbleContainerIds = [
+        'scroll-instruction-bubble',
+        'gems-button-bubble',
+        'select-gem-guide-bubble',
+        'sockets-instruction-bubble',
+        'crown-button-bubble',
+        'select-crown-guide-bubble',
+        'crown-sockets-instruction-bubble'
+    ];
+    speechBubbleContainerIds.forEach(bubbleId => {
+        const bubbleContainerElement = document.getElementById(bubbleId);
+        if (bubbleContainerElement) {
+            const shouldBeActive = bubbleId === activeBubbleId;
+            if (shouldBeActive) {
+                bubbleContainerElement.classList.add('active');
+            } else {
+                bubbleContainerElement.classList.remove('active');
+            }
+        }
+    });
+}
+
+export function setSocketsInstructionText(text) {
+    const socketsBubbleTextElement = document.getElementById('sockets-bubble-text');
+    if (!socketsBubbleTextElement) return;
+    socketsBubbleTextElement.style.opacity = 0;
+    setTimeout(() => {
+        socketsBubbleTextElement.textContent = text;
+        socketsBubbleTextElement.style.opacity = 1;
+    }, 250);
 }
 
 export function setInstructionText(text) {

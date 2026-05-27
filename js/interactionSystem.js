@@ -1,10 +1,12 @@
 import { progressionState, checkGemsPhaseCompletion, checkCrownsPhaseCompletion, executeBorderTransformation } from './progressionController.js';
 import { playSynthesizedSound, initializeAudio } from './animationController.js';
 import { GEM_ASSETS, spawnParticleExplosion, resizeBackgroundCanvas, initializeCelebrationCanvas } from './assetController.js';
-import { currentGameState, changeGameState, setInstructionText } from './stateManager.js';
+import { currentGameState, changeGameState, setInstructionText, showInstructionBubble, setSocketsInstructionText } from './stateManager.js';
 
 let selectedDecorationType = null;
 let selectedDecorationColor = null;
+let hasClickedGemOnce = false;
+let hasClickedCrownOnce = false;
 
 export function toggleGemOverlay(show) {
     const overlay = document.getElementById('gem-overlay');
@@ -39,6 +41,8 @@ function selectGemColor(color, element) {
     selectedDecorationColor = color;
     
     highlightEmptyGemSockets();
+    hasClickedGemOnce = true;
+    showInstructionBubble('sockets-instruction-bubble');
 }
 
 function selectCrownItem(element) {
@@ -52,6 +56,8 @@ function selectCrownItem(element) {
     selectedDecorationColor = element.dataset.crown;
     
     highlightEmptyCrownSockets();
+    hasClickedCrownOnce = true;
+    showInstructionBubble('crown-sockets-instruction-bubble');
 }
 
 function highlightEmptyGemSockets() {
@@ -170,6 +176,11 @@ function placeGemInSocket(socketId, socketElement) {
         spawnParticleExplosion(px, py, getGemHexColor(selectedDecorationColor));
         
         progressionState.placedGemsCount++;
+        if (progressionState.placedGemsCount < 4) {
+            showInstructionBubble('scroll-instruction-bubble');
+        } else {
+            showInstructionBubble(null);
+        }
         checkGemsPhaseCompletion();
     }, 450); // Matches the 0.45s flight duration exactly
     
@@ -236,6 +247,11 @@ function placeCrownInSocket(socketId, socketElement) {
         spawnParticleExplosion(px, py, '#ffd700');
         
         progressionState.placedCrownsCount++;
+        if (progressionState.placedCrownsCount < 2) {
+            showInstructionBubble('scroll-instruction-bubble');
+        } else {
+            showInstructionBubble(null);
+        }
         checkCrownsPhaseCompletion();
     }, 450); // Matches the 0.45s flight duration exactly
     
@@ -261,6 +277,11 @@ export function registerEventHandlers() {
         toggleGemOverlay(true);
         clearSocketHighlights();
         highlightEmptyGemSockets();
+        if (hasClickedGemOnce) {
+            showInstructionBubble('scroll-instruction-bubble');
+        } else {
+            showInstructionBubble('select-gem-guide-bubble');
+        }
     });
     
     document.getElementById('btn-crown').addEventListener('click', function() {
@@ -271,6 +292,11 @@ export function registerEventHandlers() {
         toggleCrownOverlay(true);
         clearSocketHighlights();
         highlightEmptyCrownSockets();
+        if (hasClickedCrownOnce) {
+            showInstructionBubble('scroll-instruction-bubble');
+        } else {
+            showInstructionBubble('select-crown-guide-bubble');
+        }
     });
     
     document.getElementById('btn-border').addEventListener('click', () => {
