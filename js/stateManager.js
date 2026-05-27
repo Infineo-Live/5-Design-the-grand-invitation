@@ -19,6 +19,18 @@ export function changeGameState(nextState) {
     
     document.querySelectorAll('.screen').forEach(scr => scr.classList.remove('active'));
     
+    const gameplayScreen = document.getElementById('gameplay-screen');
+    if (gameplayScreen) {
+        gameplayScreen.classList.remove('ruby-phase', 'crown-phase', 'border-phase');
+        if (nextState === GAME_STATES.RUBY_PHASE) {
+            gameplayScreen.classList.add('ruby-phase');
+        } else if (nextState === GAME_STATES.CROWN_PHASE) {
+            gameplayScreen.classList.add('crown-phase');
+        } else if (nextState === GAME_STATES.BORDER_PHASE) {
+            gameplayScreen.classList.add('border-phase');
+        }
+    }
+    
     if (nextState === GAME_STATES.START_SCREEN) {
         document.getElementById('start-screen').classList.add('active');
         document.getElementById('bg-canvas').style.display = 'block';

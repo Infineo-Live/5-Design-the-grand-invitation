@@ -118,6 +118,12 @@
 .socket.crown-top,
 .socket.crown-bottom {
     border-radius: 1cqh;
+    display: none;
+}
+
+.crown-phase .socket.crown-top,
+.crown-phase .socket.crown-bottom {
+    display: flex;
 }
 
 .socket.crown-top::before,

@@ -260,6 +260,7 @@ export function registerEventHandlers() {
         this.classList.add('greyed-out');
         toggleGemOverlay(true);
         clearSocketHighlights();
+        highlightEmptyGemSockets();
     });
     
     document.getElementById('btn-crown').addEventListener('click', function() {
@@ -269,6 +270,7 @@ export function registerEventHandlers() {
         this.classList.add('greyed-out');
         toggleCrownOverlay(true);
         clearSocketHighlights();
+        highlightEmptyCrownSockets();
     });
     
     document.getElementById('btn-border').addEventListener('click', () => {
