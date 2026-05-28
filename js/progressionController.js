@@ -81,7 +81,7 @@ export function executeBorderTransformation() {
         }
 
         setTimeout(() => {
-            scrollParchment.src = 'assets/images/invite-template-2.png';
+            scrollParchment.src = 'assets/images/invite-template-2.webp';
             scrollParchment.style.opacity = 1;
 
             const rect = scrollParchment.getBoundingClientRect();

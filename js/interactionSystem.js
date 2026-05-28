@@ -224,7 +224,7 @@ function placeContentInSocket(socketId, socketElement) {
     progressionState.socketsState[socketId].type = socketId;
     
     const placedItem = document.getElementById(`placed-${socketId}`);
-    const imgFilename = socketId === 'castle' ? 'castle.png' : 'invite-text.png';
+    const imgFilename = socketId === 'castle' ? 'castle.webp' : 'invite-text.webp';
     placedItem.style.backgroundImage = `url('assets/images/${imgFilename}')`;
     placedItem.style.transform = 'translate(-50%, -50%) scale(0)';
     placedItem.style.opacity = '0';
@@ -262,7 +262,7 @@ function placeBroochInSocket(socketId, socketElement) {
     
     const placedItem = document.getElementById(`placed-${socketId}`);
     const broochImg = selectedDecorationColor || 'brooch-1';
-    placedItem.style.backgroundImage = `url('assets/images/${broochImg}.png')`;
+    placedItem.style.backgroundImage = `url('assets/images/${broochImg}.webp')`;
     placedItem.style.transform = 'translate(-50%, -50%) scale(0)';
     placedItem.style.opacity = '0';
     placedItem.style.transition = 'none';

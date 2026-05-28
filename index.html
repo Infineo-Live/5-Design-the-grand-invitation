@@ -20,10 +20,10 @@
     <div class="game-window">
         <div id="start-screen" class="screen active">
             <div class="title-container">
-                <img src="assets/images/title.png" alt="Grand Invitation" class="title-img">
+                <img src="assets/images/title.webp" alt="Grand Invitation" class="title-img">
             </div>
             <div class="start-btn-container" id="start-game-btn">
-                <img src="assets/images/start-btn.png" alt="Start Journey" class="start-btn-img">
+                <img src="assets/images/start-btn.webp" alt="Start Journey" class="start-btn-img">
             </div>
         </div>
 
@@ -107,7 +107,7 @@
             </div>
 
             <div class="scroll-container" id="scroll-wrapper">
-                <img src="assets/images/invite-template-1.png" alt="Royal Parchment" class="scroll-base"
+                <img src="assets/images/invite-template-1.webp" alt="Royal Parchment" class="scroll-base"
                     id="scroll-parchment">
 
                 <div class="interactive-layer">
@@ -132,68 +132,65 @@
 
                 <div class="gem-selection-overlay" id="gem-overlay">
                     <div class="selection-gem-item ruby stone-pos-1" data-gem="ruby">
-                        <img src="assets/images/ruby.png" alt="Ruby" class="selection-gem-img">
+                        <img src="assets/images/ruby.webp" alt="Ruby" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item sapphire stone-pos-2" data-gem="sapphire">
-                        <img src="assets/images/saphire.png" alt="Sapphire" class="selection-gem-img">
+                        <img src="assets/images/saphire.webp" alt="Sapphire" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item emerald stone-pos-3" data-gem="emerald">
-                        <img src="assets/images/emerald.png" alt="Emerald" class="selection-gem-img">
+                        <img src="assets/images/emerald.webp" alt="Emerald" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item ruby stone-pos-4" data-gem="ruby">
-                        <img src="assets/images/ruby.png" alt="Ruby" class="selection-gem-img">
+                        <img src="assets/images/ruby.webp" alt="Ruby" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item sapphire stone-pos-5" data-gem="sapphire">
-                        <img src="assets/images/saphire.png" alt="Sapphire" class="selection-gem-img">
+                        <img src="assets/images/saphire.webp" alt="Sapphire" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item emerald stone-pos-6" data-gem="emerald">
-                        <img src="assets/images/emerald.png" alt="Emerald" class="selection-gem-img">
+                        <img src="assets/images/emerald.webp" alt="Emerald" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item purple stone-pos-7" data-gem="purple">
-                        <img src="assets/images/purple.png" alt="Purple Gem" class="selection-gem-img">
+                        <img src="assets/images/purple.webp" alt="Purple Gem" class="selection-gem-img">
                     </div>
                     <div class="selection-gem-item purple stone-pos-8" data-gem="purple">
-                        <img src="assets/images/purple.png" alt="Purple Gem" class="selection-gem-img">
+                        <img src="assets/images/purple.webp" alt="Purple Gem" class="selection-gem-img">
                     </div>
                 </div>
 
                 <div class="brooch-selection-overlay" id="brooch-overlay">
                     <div class="selection-brooch-item brooch-pos-1" data-brooch="brooch-1">
-                        <img src="assets/images/brooch-1.png" alt="Royal Brooch 1" class="selection-brooch-img">
+                        <img src="assets/images/brooch-1.webp" alt="Royal Brooch 1" class="selection-brooch-img">
                     </div>
                     <div class="selection-brooch-item brooch-pos-2" data-brooch="brooch-2">
-                        <img src="assets/images/brooch-2.png" alt="Royal Brooch 2" class="selection-brooch-img">
+                        <img src="assets/images/brooch-2.webp" alt="Royal Brooch 2" class="selection-brooch-img">
                     </div>
                 </div>
             </div>
 
             <div class="side-shelf">
                 <div class="action-btn disabled" id="btn-ruby">
-                    <img src="assets/images/ruby-btn.png" alt="Gem Placement" class="btn-icon">
+                    <img src="assets/images/ruby-btn.webp" alt="Gem Placement" class="btn-icon">
                 </div>
                 <div class="action-btn disabled" id="btn-brooch">
-                    <img src="assets/images/brooch-btn.png" alt="Brooch Placement" class="btn-icon">
+                    <img src="assets/images/brooch-btn.webp" alt="Brooch Placement" class="btn-icon">
                 </div>
                 <div class="action-btn disabled" id="btn-border">
-                    <img src="assets/images/frame-btn.png" alt="Assemble Border" class="btn-icon">
+                    <img src="assets/images/frame-btn.webp" alt="Assemble Border" class="btn-icon">
                 </div>
             </div>
         </div>
 
         <div id="cinematic-layer">
-            <div class="video-frame-container">
-                <img src="assets/images/vid-frame-1.png" alt="Frame 1" class="vid-frame active" id="vid-frame-1">
-                <img src="assets/images/vid-frame-2.png" alt="Frame 2" class="vid-frame" id="vid-frame-2">
-                <img src="assets/images/vid-frame-3.png" alt="Frame 3" class="vid-frame" id="vid-frame-3">
-                <img src="assets/images/vid-frame-4.png" alt="Frame 4" class="vid-frame" id="vid-frame-4">
-                <img src="assets/images/vid-frame-5.png" alt="Frame 5" class="vid-frame" id="vid-frame-5">
-            </div>
+            <video id="cinematic-video" playsinline preload="auto">
+                <source src="assets/video/The-scrolling-animation.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
         </div>
 
         <div id="celebration-screen" class="screen">
             <canvas class="celebration-canvas" id="rain-canvas"></canvas>
             <div class="result-text-container" id="celebration-text">
-                <img src="assets/images/result-text.png" alt="Invitation Assembled Successfully"
+                <img src="assets/images/result-text.webp" alt="Invitation Assembled Successfully"
                     class="result-text-img">
             </div>
         </div>

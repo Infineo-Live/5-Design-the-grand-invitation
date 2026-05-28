@@ -1,8 +1,8 @@
 export const GEM_ASSETS = {
-    ruby: 'assets/images/ruby.png',
-    sapphire: 'assets/images/saphire.png',
-    emerald: 'assets/images/emerald.png',
-    purple: 'assets/images/purple.png'
+    ruby: 'assets/images/ruby.webp',
+    sapphire: 'assets/images/saphire.webp',
+    emerald: 'assets/images/emerald.webp',
+    purple: 'assets/images/purple.webp'
 };
 
 let backgroundParticles = [];
@@ -136,7 +136,7 @@ function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius, color, alpha) {
     let step = Math.PI / spikes;
 
     ctx.beginPath();
-    ctx.moveTo(cx, cy - outerRadius);
+    ctx.webmeTo(cx, cy - outerRadius);
     for (let i = 0; i < spikes; i++) {
         x = cx + Math.cos(rot) * outerRadius;
         y = cy + Math.sin(rot) * outerRadius;

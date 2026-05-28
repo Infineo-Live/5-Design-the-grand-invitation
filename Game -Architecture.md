@@ -83,32 +83,32 @@ The illusion of depth comes from:
 ├── /assets
 │   │
 │   ├── /backgrounds
-│   │     castle_interior_bg.png
+│   │     castle_interior_bg.webp
 │   │
 │   ├── /ui
-│   │     game_title.png
-│   │     start_button.png
-│   │     btn_ruby_placement.png
-│   │     btn_brooch_placement.png
-│   │     btn_border_assemble.png
+│   │     game_title.webp
+│   │     start_button.webp
+│   │     btn_ruby_placement.webp
+│   │     btn_brooch_placement.webp
+│   │     btn_border_assemble.webp
 │   │
 │   ├── /scrolls
-│   │     base_parchment_scroll.png
-│   │     transformed_premium_scroll.png
+│   │     base_parchment_scroll.webp
+│   │     transformed_premium_scroll.webp
 │   │
 │   ├── /gems
-│   │     ruby_red.png
-│   │     ruby_blue.png
-│   │     ruby_green.png
+│   │     ruby_red.webp
+│   │     ruby_blue.webp
+│   │     ruby_green.webp
 │   │
 │   ├── /ornaments
-│   │     golden_brooch.png
+│   │     golden_brooch.webp
 │   │
 │   ├── /video
-│   │     scroll_rolling_finale.mp4
+│   │     scroll_rolling_finale.webm
 │   │
 │   └── /celebration
-│         celebration_laughing_kubera.png
+│         celebration_laughing_kubera.webp
 │
 ├── /css
 │     animations.css
@@ -163,7 +163,7 @@ Background immersion.
 ### Assets
 
 ```txt
-castle_interior_bg.png
+castle_interior_bg.webp
 ```
 
 ### Behavior
@@ -189,8 +189,8 @@ Central gameplay canvas.
 ### Assets
 
 ```txt
-base_parchment_scroll.png
-transformed_premium_scroll.png
+base_parchment_scroll.webp
+transformed_premium_scroll.webp
 ```
 
 ### Behavior
@@ -200,7 +200,7 @@ transformed_premium_scroll.png
 Render:
 
 ```txt
-base_parchment_scroll.png
+base_parchment_scroll.webp
 ```
 
 #### Border Completion
@@ -208,7 +208,7 @@ base_parchment_scroll.png
 Swap to:
 
 ```txt
-transformed_premium_scroll.png
+transformed_premium_scroll.webp
 ```
 
 ### Important Rule
@@ -241,10 +241,10 @@ Handles all movable gameplay pieces.
 ### Assets
 
 ```txt
-ruby_red.png
-ruby_blue.png
-ruby_green.png
-golden_brooch.png
+ruby_red.webp
+ruby_blue.webp
+ruby_green.webp
+golden_brooch.webp
 ```
 
 ### Object Behavior
@@ -294,11 +294,11 @@ Gameplay control system.
 ### Assets
 
 ```txt
-game_title.png
-start_button.png
-btn_ruby_placement.png
-btn_brooch_placement.png
-btn_border_assemble.png
+game_title.webp
+start_button.webp
+btn_ruby_placement.webp
+btn_brooch_placement.webp
+btn_border_assemble.webp
 ```
 
 ### UI Principles
@@ -327,7 +327,7 @@ Final transition sequence.
 ### Asset
 
 ```txt
-scroll_rolling_finale.mp4
+scroll_rolling_finale.webm
 ```
 
 ### Behavior
@@ -354,7 +354,7 @@ Reward screen.
 ### Asset
 
 ```txt
-celebration_laughing_kubera.png
+celebration_laughing_kubera.webp
 ```
 
 ### Behavior
@@ -381,9 +381,9 @@ z-index: 40;
 ## Active Assets
 
 ```txt
-castle_interior_bg.png
-game_title.png
-start_button.png
+castle_interior_bg.webp
+game_title.webp
+start_button.webp
 ```
 
 ## Active Systems
@@ -438,7 +438,7 @@ START_SCREEN → SCROLL_ENTRY
 ## Active Asset
 
 ```txt
-base_parchment_scroll.png
+base_parchment_scroll.webp
 ```
 
 ## Systems Activated
@@ -459,15 +459,15 @@ Introduce workspace.
 Player presses:
 
 ```txt
-btn_ruby_placement.png
+btn_ruby_placement.webp
 ```
 
 ## Assets Spawned
 
 ```txt
-ruby_red.png
-ruby_blue.png
-ruby_green.png
+ruby_red.webp
+ruby_blue.webp
+ruby_green.webp
 ```
 
 ## Spawn Count
@@ -535,13 +535,13 @@ Bottom Right
 Player presses:
 
 ```txt
-btn_brooch_placement.png
+btn_brooch_placement.webp
 ```
 
 ## Assets Spawned
 
 ```txt
-golden_brooch.png
+golden_brooch.webp
 ```
 
 ## Spawn Count
@@ -599,7 +599,7 @@ Unlock border button.
 Player presses:
 
 ```txt
-btn_border_assemble.png
+btn_border_assemble.webp
 ```
 
 ## Main Event
@@ -607,13 +607,13 @@ btn_border_assemble.png
 Replace:
 
 ```txt
-base_parchment_scroll.png
+base_parchment_scroll.webp
 ```
 
 With:
 
 ```txt
-transformed_premium_scroll.png
+transformed_premium_scroll.webp
 ```
 
 ## Gameplay Effect
@@ -629,7 +629,7 @@ The invitation transforms into its final royal version.
 ## Asset
 
 ```txt
-scroll_rolling_finale.mp4
+scroll_rolling_finale.webm
 ```
 
 ## Flow
@@ -661,7 +661,7 @@ Transition to celebration.
 ## Asset
 
 ```txt
-celebration_laughing_kubera.png
+celebration_laughing_kubera.webp
 ```
 
 ## Systems
