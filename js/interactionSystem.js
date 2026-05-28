@@ -1,4 +1,4 @@
-import { progressionState, checkGemsPhaseCompletion, checkCrownsPhaseCompletion, checkContentPhaseCompletion, executeBorderTransformation } from './progressionController.js';
+import { progressionState, checkGemsPhaseCompletion, checkBroochesPhaseCompletion, checkContentPhaseCompletion, executeBorderTransformation } from './progressionController.js';
 import { playSynthesizedSound, initializeAudio } from './animationController.js';
 import { GEM_ASSETS, spawnParticleExplosion, resizeBackgroundCanvas, initializeCelebrationCanvas } from './assetController.js';
 import { currentGameState, changeGameState, setInstructionText, showInstructionBubble, setSocketsInstructionText, GAME_STATES } from './stateManager.js';
@@ -6,27 +6,27 @@ import { currentGameState, changeGameState, setInstructionText, showInstructionB
 let selectedDecorationType = null;
 let selectedDecorationColor = null;
 let hasClickedGemOnce = false;
-let hasClickedCrownOnce = false;
+let hasClickedBroochOnce = false;
 
 export function toggleGemOverlay(show) {
     const overlay = document.getElementById('gem-overlay');
     if (show) {
         overlay.classList.add('active');
-        document.getElementById('crown-overlay').classList.remove('active');
+        document.getElementById('brooch-overlay').classList.remove('active');
     } else {
         overlay.classList.remove('active');
         document.querySelectorAll('.selection-gem-item').forEach(item => item.classList.remove('selected'));
     }
 }
 
-export function toggleCrownOverlay(show) {
-    const overlay = document.getElementById('crown-overlay');
+export function toggleBroochOverlay(show) {
+    const overlay = document.getElementById('brooch-overlay');
     if (show) {
         overlay.classList.add('active');
         document.getElementById('gem-overlay').classList.remove('active');
     } else {
         overlay.classList.remove('active');
-        document.querySelectorAll('.selection-crown-item').forEach(item => item.classList.remove('selected'));
+        document.querySelectorAll('.selection-brooch-item').forEach(item => item.classList.remove('selected'));
     }
 }
 
@@ -49,20 +49,20 @@ function selectGemColor(color, element) {
     }
 }
 
-function selectCrownItem(element) {
+function selectBroochItem(element) {
     initializeAudio();
     playSynthesizedSound('click');
     
-    document.querySelectorAll('.selection-crown-item').forEach(item => item.classList.remove('selected'));
+    document.querySelectorAll('.selection-brooch-item').forEach(item => item.classList.remove('selected'));
     element.classList.add('selected');
     
-    selectedDecorationType = 'crown';
-    selectedDecorationColor = element.dataset.crown;
+    selectedDecorationType = 'brooch';
+    selectedDecorationColor = element.dataset.brooch;
     
-    highlightEmptyCrownSockets();
-    if (!hasClickedCrownOnce) {
-        showInstructionBubble('crown-sockets-instruction-bubble');
-        hasClickedCrownOnce = true;
+    highlightEmptyBroochSockets();
+    if (!hasClickedBroochOnce) {
+        showInstructionBubble('brooch-sockets-instruction-bubble');
+        hasClickedBroochOnce = true;
     } else {
         showInstructionBubble('scroll-instruction-bubble');
     }
@@ -85,12 +85,12 @@ function highlightEmptyGemSockets() {
     }
 }
 
-function highlightEmptyCrownSockets() {
+function highlightEmptyBroochSockets() {
     let emptySocketsExist = false;
-    const crownSockets = ['ct', 'cb'];
+    const broochSockets = ['bt', 'bb'];
     
-    crownSockets.forEach(id => {
-        const cssClass = id === 'ct' ? 'crown-top' : 'crown-bottom';
+    broochSockets.forEach(id => {
+        const cssClass = id === 'bt' ? 'brooch-top' : 'brooch-bottom';
         const socketElement = document.querySelector(`.socket.${cssClass}`);
         if (!progressionState.socketsState[id].filled) {
             socketElement.classList.add('active');
@@ -99,7 +99,7 @@ function highlightEmptyCrownSockets() {
     });
     
     if (emptySocketsExist) {
-        setInstructionText('Tap a glowing handle socket to mount the crown');
+        setInstructionText('Tap a glowing handle socket to mount the brooch');
     }
 }
 
@@ -129,8 +129,8 @@ function handleSocketClick(socketId, socketElement) {
         placeContentInSocket(socketId, socketElement);
     } else if (selectedDecorationType === 'gem' && ['tl', 'tr', 'bl', 'br'].includes(socketId)) {
         placeGemInSocket(socketId, socketElement);
-    } else if (selectedDecorationType === 'crown' && ['ct', 'cb'].includes(socketId)) {
-        placeCrownInSocket(socketId, socketElement);
+    } else if (selectedDecorationType === 'brooch' && ['bt', 'bb'].includes(socketId)) {
+        placeBroochInSocket(socketId, socketElement);
     } else {
         playSynthesizedSound('error');
     }
@@ -251,7 +251,7 @@ function placeContentInSocket(socketId, socketElement) {
     socketElement.classList.add('locked');
 }
 
-function placeCrownInSocket(socketId, socketElement) {
+function placeBroochInSocket(socketId, socketElement) {
     if (progressionState.socketsState[socketId].filled) {
         playSynthesizedSound('error');
         return;
@@ -261,23 +261,23 @@ function placeCrownInSocket(socketId, socketElement) {
     progressionState.socketsState[socketId].type = selectedDecorationColor;
     
     const placedItem = document.getElementById(`placed-${socketId}`);
-    const crownImg = selectedDecorationColor || 'crown-1';
-    placedItem.style.backgroundImage = `url('assets/images/${crownImg}.png')`;
+    const broochImg = selectedDecorationColor || 'brooch-1';
+    placedItem.style.backgroundImage = `url('assets/images/${broochImg}.png')`;
     placedItem.style.transform = 'translate(-50%, -50%) scale(0)';
     placedItem.style.opacity = '0';
     placedItem.style.transition = 'none';
     
-    const selectedElement = document.querySelector('.selection-crown-item.selected');
+    const selectedElement = document.querySelector('.selection-brooch-item.selected');
     if (selectedElement) {
         selectedElement.classList.add('placed-from-menu');
         selectedElement.classList.remove('selected');
         
         // Calculate flight offset from selection position to target socket position
-        const crownRect = selectedElement.getBoundingClientRect();
+        const broochRect = selectedElement.getBoundingClientRect();
         const socketRect = socketElement.getBoundingClientRect();
         
-        const dx = socketRect.left - crownRect.left + (socketRect.width - crownRect.width) / 2;
-        const dy = socketRect.top - crownRect.top + (socketRect.height - crownRect.height) / 2;
+        const dx = socketRect.left - broochRect.left + (socketRect.width - broochRect.width) / 2;
+        const dy = socketRect.top - broochRect.top + (socketRect.height - broochRect.height) / 2;
         
         // Flight translation: remains fully visible (opacity 1) during the flight
         selectedElement.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
@@ -306,13 +306,13 @@ function placeCrownInSocket(socketId, socketElement) {
         
         spawnParticleExplosion(px, py, '#ffd700');
         
-        progressionState.placedCrownsCount++;
-        if (progressionState.placedCrownsCount < 2) {
+        progressionState.placedBroochesCount++;
+        if (progressionState.placedBroochesCount < 2) {
             showInstructionBubble('scroll-instruction-bubble');
         } else {
             showInstructionBubble(null);
         }
-        checkCrownsPhaseCompletion();
+        checkBroochesPhaseCompletion();
     }, 450); // Matches the 0.45s flight duration exactly
     
     clearSocketHighlights();
@@ -344,18 +344,18 @@ export function registerEventHandlers() {
         }
     });
     
-    document.getElementById('btn-crown').addEventListener('click', function() {
+    document.getElementById('btn-brooch').addEventListener('click', function() {
         initializeAudio();
-        if (currentGameState !== 'crown_phase') return;
+        if (currentGameState !== 'brooch_phase') return;
         playSynthesizedSound('click');
         this.classList.add('greyed-out');
-        toggleCrownOverlay(true);
+        toggleBroochOverlay(true);
         clearSocketHighlights();
-        highlightEmptyCrownSockets();
-        if (hasClickedCrownOnce) {
+        highlightEmptyBroochSockets();
+        if (hasClickedBroochOnce) {
             showInstructionBubble('scroll-instruction-bubble');
         } else {
-            showInstructionBubble('select-crown-guide-bubble');
+            showInstructionBubble('select-brooch-guide-bubble');
         }
     });
     
@@ -370,9 +370,9 @@ export function registerEventHandlers() {
         });
     });
     
-    document.querySelectorAll('.selection-crown-item').forEach(item => {
+    document.querySelectorAll('.selection-brooch-item').forEach(item => {
         item.addEventListener('click', function() {
-            selectCrownItem(this);
+            selectBroochItem(this);
         });
     });
     

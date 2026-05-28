@@ -94,7 +94,7 @@
     --placed-h: 12cqh;
 }
 
-.pos-crown-top {
+.pos-brooch-top {
     top: 16.5%;
     left: 50%;
     --socket-w: 16cqh;
@@ -103,7 +103,7 @@
     --placed-h: 24cqh;
 }
 
-.pos-crown-bottom {
+.pos-brooch-bottom {
     top: 86.3%;
     left: 50%;
     --socket-w: 16cqh;
@@ -112,22 +112,32 @@
     --placed-h: 24cqh;
 }
 
-.pos-content-castle {
-    top: 61%;
-    left: 50%;
-    --socket-w: 20cqh;
-    --socket-h: 20cqh;
-    --placed-w: 20cqh;
-    --placed-h: 20cqh;
+.socket-content-castle {
+    top: 74.3%;
+    left: 50.1%;
+    --socket-w: 25cqh;
+    --socket-h: 12cqh;
 }
 
-.pos-content-text {
-    top: 36%;
+.placed-content-castle {
+    top: 63.3%;
+    left: 50.1%;
+    --placed-w: 29.5cqh;
+    --placed-h: 29.5cqh;
+}
+
+.socket-content-text {
+    top: 48%;
     left: 50%;
-    --socket-w: 36cqh;
-    --socket-h: 22cqh;
-    --placed-w: 36cqh;
-    --placed-h: 22cqh;
+    --socket-w: 18cqh;
+    --socket-h: 13cqh;
+}
+
+.placed-content-text {
+    top: 48%;
+    left: 50%;
+    --placed-w: 43cqh;
+    --placed-h: 29cqh;
 }
 
 .socket {
@@ -135,19 +145,25 @@
     height: var(--socket-h, 8cqh);
 }
 
-.socket.crown-top,
-.socket.crown-bottom {
+.socket.brooch-top,
+.socket.brooch-bottom {
     border-radius: 1cqh;
     display: none;
+    z-index: 17;
 }
 
-.crown-phase .socket.crown-top,
-.crown-phase .socket.crown-bottom {
+.brooch-phase .socket.brooch-top,
+.brooch-phase .socket.brooch-bottom {
     display: flex;
 }
 
-.socket.crown-top::before,
-.socket.crown-bottom::before {
+.placed-item.brooch-top,
+.placed-item.brooch-bottom {
+    z-index: 18;
+}
+
+.socket.brooch-top::before,
+.socket.brooch-bottom::before {
     border-radius: 1cqh;
 }
 
@@ -189,7 +205,7 @@
 }
 
 .selection-gem-item.placed-from-menu,
-.selection-crown-item.placed-from-menu {
+.selection-brooch-item.placed-from-menu {
     pointer-events: none !important;
 }
 
@@ -248,18 +264,18 @@
     filter: drop-shadow(0 0 1cqh var(--color-purple)) drop-shadow(0 0.4cqh 0.6cqh rgba(0, 0, 0, 0.45));
 }
 
-.selection-crown-item {
+.selection-brooch-item {
     background: none;
     border: none;
     box-shadow: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.selection-crown-item.selected {
+.selection-brooch-item.selected {
     transform: scale(1.2) !important;
 }
 
-.selection-crown-img {
+.selection-brooch-img {
     width: 95%;
     height: 95%;
     object-fit: contain;
@@ -267,7 +283,7 @@
     transition: filter 0.3s ease;
 }
 
-.selection-crown-item.selected .selection-crown-img {
+.selection-brooch-item.selected .selection-brooch-img {
     filter: drop-shadow(0 0 1cqh var(--color-gold)) drop-shadow(0 0.4cqh 0.6cqh rgba(0, 0, 0, 0.45));
 }
 

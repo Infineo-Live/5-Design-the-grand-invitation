@@ -83,15 +83,15 @@
     transform: scale(0.95);
 }
 
-.crown-selection-overlay {
+.brooch-selection-overlay {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
 }
 
-.selection-crown-item:hover {
+.selection-brooch-item:hover {
     transform: scale(1.08);
 }
 
-.selection-crown-item:active {
+.selection-brooch-item:active {
     transform: scale(0.95);
 }
 

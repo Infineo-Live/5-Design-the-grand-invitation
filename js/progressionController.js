@@ -4,15 +4,15 @@ import { spawnParticleExplosion } from './assetController.js';
 
 export const progressionState = {
     placedGemsCount: 0,
-    placedCrownsCount: 0,
+    placedBroochesCount: 0,
     placedContentCount: 0,
     socketsState: {
         tl: { filled: false, type: null },
         tr: { filled: false, type: null },
         bl: { filled: false, type: null },
         br: { filled: false, type: null },
-        ct: { filled: false, type: null },
-        cb: { filled: false, type: null },
+        bt: { filled: false, type: null },
+        bb: { filled: false, type: null },
         castle: { filled: false, type: null },
         text: { filled: false, type: null }
     }
@@ -22,21 +22,21 @@ export function checkGemsPhaseCompletion() {
     if (progressionState.placedGemsCount === 4) {
         setTimeout(() => {
             playSynthesizedSound('success');
-            changeGameState('crown_phase');
+            changeGameState('brooch_phase');
         }, 600);
     } else {
         setInstructionText('Choose another gem for the remaining corners');
     }
 }
 
-export function checkCrownsPhaseCompletion() {
-    if (progressionState.placedCrownsCount === 2) {
+export function checkBroochesPhaseCompletion() {
+    if (progressionState.placedBroochesCount === 2) {
         setTimeout(() => {
             playSynthesizedSound('success');
             changeGameState('content_phase');
         }, 600);
     } else {
-        setInstructionText('Select and mount the final crown');
+        setInstructionText('Select and mount the final brooch');
     }
 }
 
@@ -66,6 +66,19 @@ export function executeBorderTransformation() {
     setTimeout(() => {
         const scrollParchment = document.getElementById('scroll-parchment');
         scrollParchment.style.opacity = 0;
+        
+        const placedCastle = document.getElementById('placed-castle');
+        const placedText = document.getElementById('placed-text');
+        if (placedCastle) {
+            placedCastle.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            placedCastle.style.transform = 'translate(-50%, -50%) scale(0)';
+            placedCastle.style.opacity = 0;
+        }
+        if (placedText) {
+            placedText.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            placedText.style.transform = 'translate(-50%, -50%) scale(0)';
+            placedText.style.opacity = 0;
+        }
         
         setTimeout(() => {
             scrollParchment.src = 'assets/images/invite-template-2.png';

@@ -1,12 +1,12 @@
 import { resizeBackgroundCanvas, initializeBackgroundParticles, animateBackgroundParticles, initializeCelebrationCanvas, animateCelebrationRain } from './assetController.js';
 import { playSynthesizedSound, triggerCinematicSequence } from './animationController.js';
-import { registerEventHandlers, toggleGemOverlay, toggleCrownOverlay, activateContentSockets } from './interactionSystem.js';
+import { registerEventHandlers, toggleGemOverlay, toggleBroochOverlay, activateContentSockets } from './interactionSystem.js';
 
 export const GAME_STATES = {
     START_SCREEN: 'start_screen',
     SCROLL_ENTRY: 'scroll_entry',
     RUBY_PHASE: 'ruby_phase',
-    CROWN_PHASE: 'crown_phase',
+    BROOCH_PHASE: 'brooch_phase',
     CONTENT_PHASE: 'content_phase',
     BORDER_PHASE: 'border_phase',
     FINALE_CINEMATIC: 'finale_cinematic',
@@ -22,11 +22,11 @@ export function changeGameState(nextState) {
     
     const gameplayScreen = document.getElementById('gameplay-screen');
     if (gameplayScreen) {
-        gameplayScreen.classList.remove('ruby-phase', 'crown-phase', 'content-phase', 'border-phase');
+        gameplayScreen.classList.remove('ruby-phase', 'brooch-phase', 'content-phase', 'border-phase');
         if (nextState === GAME_STATES.RUBY_PHASE) {
             gameplayScreen.classList.add('ruby-phase');
-        } else if (nextState === GAME_STATES.CROWN_PHASE) {
-            gameplayScreen.classList.add('crown-phase');
+        } else if (nextState === GAME_STATES.BROOCH_PHASE) {
+            gameplayScreen.classList.add('brooch-phase');
         } else if (nextState === GAME_STATES.CONTENT_PHASE) {
             gameplayScreen.classList.add('content-phase');
         } else if (nextState === GAME_STATES.BORDER_PHASE) {
@@ -63,18 +63,18 @@ export function changeGameState(nextState) {
         showInstructionBubble('gems-button-bubble');
     }
     
-    if (nextState === GAME_STATES.CROWN_PHASE) {
+    if (nextState === GAME_STATES.BROOCH_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
-        setInstructionText('Select the royal crown to cap the handles');
+        setInstructionText('Select the royal brooch to cap the handles');
         toggleGemOverlay(false);
         updateActionButtons();
-        showInstructionBubble('crown-button-bubble');
+        showInstructionBubble('brooch-button-bubble');
     }
     
     if (nextState === GAME_STATES.CONTENT_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Tap the parchment areas to add the castle and text');
-        toggleCrownOverlay(false);
+        toggleBroochOverlay(false);
         updateActionButtons();
         showInstructionBubble('content-phase-bubble');
         activateContentSockets();
@@ -83,7 +83,7 @@ export function changeGameState(nextState) {
     if (nextState === GAME_STATES.BORDER_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Press Assemble to finalize the border magic');
-        toggleCrownOverlay(false);
+        toggleBroochOverlay(false);
         updateActionButtons();
         showInstructionBubble('scroll-instruction-bubble');
     }
@@ -116,9 +116,9 @@ export function showInstructionBubble(activeBubbleId) {
         'gems-button-bubble',
         'select-gem-guide-bubble',
         'sockets-instruction-bubble',
-        'crown-button-bubble',
-        'select-crown-guide-bubble',
-        'crown-sockets-instruction-bubble',
+        'brooch-button-bubble',
+        'select-brooch-guide-bubble',
+        'brooch-sockets-instruction-bubble',
         'content-phase-bubble'
     ];
     speechBubbleContainerIds.forEach(bubbleId => {
@@ -156,21 +156,21 @@ export function setInstructionText(text) {
 
 function updateActionButtons() {
     const btnRuby = document.getElementById('btn-ruby');
-    const btnCrown = document.getElementById('btn-crown');
+    const btnBrooch = document.getElementById('btn-brooch');
     const btnBorder = document.getElementById('btn-border');
     
     btnRuby.classList.add('disabled');
-    btnCrown.classList.add('disabled');
+    btnBrooch.classList.add('disabled');
     btnBorder.classList.add('disabled');
     
     btnRuby.classList.remove('greyed-out');
-    btnCrown.classList.remove('greyed-out');
+    btnBrooch.classList.remove('greyed-out');
     btnBorder.classList.remove('greyed-out');
     
     if (currentGameState === GAME_STATES.RUBY_PHASE) {
         btnRuby.classList.remove('disabled');
-    } else if (currentGameState === GAME_STATES.CROWN_PHASE) {
-        btnCrown.classList.remove('disabled');
+    } else if (currentGameState === GAME_STATES.BROOCH_PHASE) {
+        btnBrooch.classList.remove('disabled');
     } else if (currentGameState === GAME_STATES.BORDER_PHASE) {
         btnBorder.classList.remove('disabled');
     }

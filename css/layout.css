@@ -52,7 +52,7 @@ body {
 }
 
 .background-image.result-bg {
-    background-image: url('../assets/images/result-bg.png');
+    background-image: url('../assets/images/main-bg.png');
     opacity: 0;
     transform: scale(1.05);
     transition: opacity 1.5s ease-in-out, transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
@@ -375,7 +375,7 @@ body.game-started #start-screen {
     top: 58%;
 }
 
-.crown-selection-overlay {
+.brooch-selection-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -388,7 +388,7 @@ body.game-started #start-screen {
     box-shadow: none;
 }
 
-.selection-crown-item {
+.selection-brooch-item {
     position: absolute;
     width: 11cqh;
     height: 9cqh;
@@ -403,34 +403,34 @@ body.game-started #start-screen {
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.25), opacity 0.5s ease;
 }
 
-.crown-selection-overlay.active .selection-crown-item {
+.brooch-selection-overlay.active .selection-brooch-item {
     opacity: 1;
     pointer-events: auto;
-    transform: translate(0, 0) rotate(var(--crown-rot, 0deg)) scale(1);
+    transform: translate(0, 0) rotate(var(--brooch-rot, 0deg)) scale(1);
 }
 
-.crown-selection-overlay.active .selection-crown-item:nth-child(1) {
+.brooch-selection-overlay.active .selection-brooch-item:nth-child(1) {
     transition-delay: 0.05s;
 }
 
-.crown-selection-overlay.active .selection-crown-item:nth-child(2) {
+.brooch-selection-overlay.active .selection-brooch-item:nth-child(2) {
     transition-delay: 0.15s;
 }
 
-.crown-pos-1 {
+.brooch-pos-1 {
     left: 96%;
     top: 25%;
     width: 17cqh;
     height: 17cqh;
-    --crown-rot: 18deg;
+    --brooch-rot: 18deg;
 }
 
-.crown-pos-2 {
+.brooch-pos-2 {
     left: 126%;
     top: 45%;
     width: 22cqh;
     height: 22cqh;
-    --crown-rot: -15deg;
+    --brooch-rot: -15deg;
 }
 
 #cinematic-layer {
@@ -502,8 +502,8 @@ body.game-started #start-screen {
 }
 
 .result-text-container {
-    width: 90%;
-    max-width: 60cqh;
+    width: 100%;
+    max-width: 90cqh;
     height: auto;
     display: flex;
     justify-content: center;
@@ -550,17 +550,17 @@ body.game-started #start-screen {
     left: 22%;
 }
 
-#select-crown-guide-bubble {
+#select-brooch-guide-bubble {
     top: 0%;
     left: 22%;
 }
 
-#crown-button-bubble {
+#brooch-button-bubble {
     top: 10%;
     left: -20%;
 }
 
-#crown-sockets-instruction-bubble {
+#brooch-sockets-instruction-bubble {
     top: -13%;
     left: 3%;
 }

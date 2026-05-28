@@ -89,7 +89,7 @@ The illusion of depth comes from:
 │   │     game_title.png
 │   │     start_button.png
 │   │     btn_ruby_placement.png
-│   │     btn_crown_placement.png
+│   │     btn_brooch_placement.png
 │   │     btn_border_assemble.png
 │   │
 │   ├── /scrolls
@@ -102,7 +102,7 @@ The illusion of depth comes from:
 │   │     ruby_green.png
 │   │
 │   ├── /ornaments
-│   │     golden_crown.png
+│   │     golden_brooch.png
 │   │
 │   ├── /video
 │   │     scroll_rolling_finale.mp4
@@ -136,7 +136,7 @@ const GAME_STATE = {
     START_SCREEN: 'start_screen',
     SCROLL_ENTRY: 'scroll_entry',
     RUBY_PHASE: 'ruby_phase',
-    CROWN_PHASE: 'crown_phase',
+    BROOCH_PHASE: 'brooch_phase',
     BORDER_PHASE: 'border_phase',
     LOGO_PHASE: 'logo_phase',
     HEADER_PHASE: 'header_phase',
@@ -244,7 +244,7 @@ Handles all movable gameplay pieces.
 ruby_red.png
 ruby_blue.png
 ruby_green.png
-golden_crown.png
+golden_brooch.png
 ```
 
 ### Object Behavior
@@ -297,7 +297,7 @@ Gameplay control system.
 game_title.png
 start_button.png
 btn_ruby_placement.png
-btn_crown_placement.png
+btn_brooch_placement.png
 btn_border_assemble.png
 ```
 
@@ -444,7 +444,7 @@ base_parchment_scroll.png
 ## Systems Activated
 
 - ruby button
-- crown button
+- brooch button
 
 ## Gameplay Goal
 
@@ -515,7 +515,7 @@ placedRubies === 4
 Execute:
 
 - remove remaining rubies
-- unlock crown phase
+- unlock brooch phase
 
 ## Ruby Socket Map
 
@@ -528,31 +528,33 @@ Bottom Right
 
 ---
 
-# Phase 3 — Crown Placement Loop
+# Phase 3 — Brooch Placement Loop
 
 ## Trigger
 
 Player presses:
 
 ```txt
-btn_crown_placement.png
+btn_brooch_placement.png
 ```
 
 ## Assets Spawned
 
 ```txt
-golden_crown.png
+golden_brooch.png
 ```
 
 ## Spawn Count
 
-2 crowns.
+## Spawn Count
+
+2 brooches.
 
 ## Logic System
 
 ### Step 1
 
-Crowns slide and rotate onto parchment.
+Brooches slide and rotate onto parchment.
 
 ### Step 2
 
@@ -560,7 +562,7 @@ Target areas glow.
 
 ### Step 3
 
-Player selects crown.
+Player selects brooch.
 
 ### Step 4
 
@@ -568,14 +570,14 @@ Player selects handle target.
 
 ### Step 5
 
-Crown snaps into place.
+Brooch snaps into place.
 
 ### Step 6
 
 Increment:
 
 ```js
-placedCrowns++;
+placedBrooches++;
 ```
 
 ### Step 7
@@ -583,7 +585,7 @@ placedCrowns++;
 When:
 
 ```js
-placedCrowns === 2
+placedBrooches === 2
 ```
 
 Unlock border button.
