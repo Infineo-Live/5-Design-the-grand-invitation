@@ -7,7 +7,8 @@ export const GAME_STATES = {
     SCROLL_ENTRY: 'scroll_entry',
     RUBY_PHASE: 'ruby_phase',
     BROOCH_PHASE: 'brooch_phase',
-    CONTENT_PHASE: 'content_phase',
+    CONTENT_TEXT_PHASE: 'content_text_phase',
+    CONTENT_CASTLE_PHASE: 'content_castle_phase',
     BORDER_PHASE: 'border_phase',
     FINALE_CINEMATIC: 'finale_cinematic',
     CELEBRATION: 'celebration'
@@ -22,13 +23,15 @@ export function changeGameState(nextState) {
 
     const gameplayScreen = document.getElementById('gameplay-screen');
     if (gameplayScreen) {
-        gameplayScreen.classList.remove('ruby-phase', 'brooch-phase', 'content-phase', 'border-phase');
+        gameplayScreen.classList.remove('ruby-phase', 'brooch-phase', 'content-text-phase', 'content-castle-phase', 'border-phase');
         if (nextState === GAME_STATES.RUBY_PHASE) {
             gameplayScreen.classList.add('ruby-phase');
         } else if (nextState === GAME_STATES.BROOCH_PHASE) {
             gameplayScreen.classList.add('brooch-phase');
-        } else if (nextState === GAME_STATES.CONTENT_PHASE) {
-            gameplayScreen.classList.add('content-phase');
+        } else if (nextState === GAME_STATES.CONTENT_TEXT_PHASE) {
+            gameplayScreen.classList.add('content-text-phase');
+        } else if (nextState === GAME_STATES.CONTENT_CASTLE_PHASE) {
+            gameplayScreen.classList.add('content-castle-phase');
         } else if (nextState === GAME_STATES.BORDER_PHASE) {
             gameplayScreen.classList.add('border-phase');
         }
@@ -71,12 +74,20 @@ export function changeGameState(nextState) {
         showInstructionBubble('brooch-button-bubble');
     }
 
-    if (nextState === GAME_STATES.CONTENT_PHASE) {
+    if (nextState === GAME_STATES.CONTENT_TEXT_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
-        setInstructionText('Tap the parchment areas to add the castle and text');
+        setInstructionText('Click the pen to start writing the invitation');
         toggleBroochOverlay(false);
         updateActionButtons();
-        showInstructionBubble('content-phase-bubble');
+        showInstructionBubble('pen-button-bubble');
+    }
+
+    if (nextState === GAME_STATES.CONTENT_CASTLE_PHASE) {
+        document.getElementById('gameplay-screen').classList.add('active');
+        setInstructionText('Click the castle model to start building');
+        toggleBroochOverlay(false);
+        updateActionButtons();
+        showInstructionBubble('castle-sockets-bubble');
         activateContentSockets();
     }
 
@@ -99,6 +110,7 @@ export function changeGameState(nextState) {
         document.getElementById('celebration-screen').classList.add('active');
         initializeCelebrationCanvas();
         animateCelebrationRain();
+        playSynthesizedSound('result');
 
         setTimeout(() => {
             const charContainer = document.getElementById('celebration-character');
@@ -119,7 +131,9 @@ export function showInstructionBubble(activeBubbleId) {
         'brooch-button-bubble',
         'select-brooch-guide-bubble',
         'brooch-sockets-instruction-bubble',
-        'content-phase-bubble'
+        'pen-button-bubble',
+        'pen-sockets-bubble',
+        'castle-sockets-bubble'
     ];
     speechBubbleContainerIds.forEach(bubbleId => {
         const bubbleContainerElement = document.getElementById(bubbleId);

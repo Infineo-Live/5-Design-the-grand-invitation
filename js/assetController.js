@@ -136,7 +136,7 @@ function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius, color, alpha) {
     let step = Math.PI / spikes;
 
     ctx.beginPath();
-    ctx.webmeTo(cx, cy - outerRadius);
+    ctx.moveTo(cx, cy - outerRadius);
     for (let i = 0; i < spikes; i++) {
         x = cx + Math.cos(rot) * outerRadius;
         y = cy + Math.sin(rot) * outerRadius;

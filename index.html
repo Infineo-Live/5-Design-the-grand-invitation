@@ -18,6 +18,7 @@
     <canvas id="bg-canvas"></canvas>
 
     <div class="game-window">
+        <img src="assets/images/logo.webp" alt="Infinio Logo" class="game-logo">
         <div id="start-screen" class="screen active">
             <div class="title-container">
                 <img src="assets/images/title.webp" alt="Grand Invitation" class="title-img">
@@ -95,13 +96,35 @@
                 </div>
             </div>
 
-            <div class="speech-bubble-container" id="content-phase-bubble">
+            <div class="speech-bubble-container" id="pen-button-bubble">
                 <div class="bubble-dot dot-1"></div>
                 <div class="bubble-dot dot-2"></div>
                 <div class="bubble-dot dot-3"></div>
                 <div class="speech-bubble-wrapper">
                     <div class="bubble-body">
-                        <p class="speech-bubble-text">Tap the parchment areas to add the castle and text</p>
+                        <p class="speech-bubble-text">Click the pen to start writing the invitation</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speech-bubble-container" id="pen-sockets-bubble">
+                <div class="bubble-dot dot-1"></div>
+                <div class="bubble-dot dot-2"></div>
+                <div class="bubble-dot dot-3"></div>
+                <div class="speech-bubble-wrapper">
+                    <div class="bubble-body">
+                        <p class="speech-bubble-text">Tap the top parchment area to write</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="speech-bubble-container" id="castle-sockets-bubble">
+                <div class="bubble-dot dot-1"></div>
+                <div class="bubble-dot dot-2"></div>
+                <div class="bubble-dot dot-3"></div>
+                <div class="speech-bubble-wrapper">
+                    <div class="bubble-body">
+                        <p class="speech-bubble-text">Tap the castle and then tap on the glowing space to place it</p>
                     </div>
                 </div>
             </div>
@@ -128,6 +151,7 @@
                     <div class="placed-item brooch-bottom pos-brooch-bottom" id="placed-bb"></div>
                     <div class="placed-item content-castle placed-content-castle" id="placed-castle"></div>
                     <div class="placed-item content-text placed-content-text" id="placed-text"></div>
+                    <div class="animating-pen" id="animating-pen"></div>
                 </div>
 
                 <div class="gem-selection-overlay" id="gem-overlay">
@@ -178,11 +202,21 @@
                     <img src="assets/images/frame-btn.webp" alt="Assemble Border" class="btn-icon">
                 </div>
             </div>
+
+            <!-- Interactive Quill Pen on the Desk -->
+            <div id="interactive-quill" class="interactive-quill">
+                <img src="assets/images/pen.webp" alt="Royal Quill" class="quill-img">
+            </div>
+
+            <!-- Interactive Castle on the Desk -->
+            <div id="interactive-castle" class="interactive-castle">
+                <img src="assets/images/castle.webp" alt="Royal Castle Model" class="castle-img">
+            </div>
         </div>
 
         <div id="cinematic-layer">
-            <video id="cinematic-video" playsinline preload="auto">
-                <source src="assets/video/The-scrolling-animation.webm" type="video/webm">
+            <video id="cinematic-video" playsinline muted autoplay preload="auto">
+                <source src="assets/video/invite-video.webm" type="video/webm">
                 Your browser does not support the video tag.
             </video>
         </div>

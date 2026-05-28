@@ -75,9 +75,10 @@ def update_references(root_dir):
                     
                     # Replace PNG references
                     new_content = content.replace('.png', '.webp').replace('.PNG', '.webp')
-                    # Replace Video references
-                    new_content = new_content.replace('.mp4', '.webm').replace('.MP4', '.webm')
-                    new_content = new_content.replace('.mov', '.webm').replace('.MOV', '.webm')
+                    # Replace Video references (keep .mp4 format as requested)
+                    new_content = new_content.replace('.mov', '.mp4').replace('.MOV', '.mp4')
+                    # Fix accidental moveTo corruption from replacing '.mov' inside 'ctx.moveTo'
+                    new_content = new_content.replace('.mp4eTo', '.moveTo').replace('.webmeTo', '.moveTo')
                     
                     if content != new_content:
                         with open(file_path, 'w', encoding='utf-8') as f:

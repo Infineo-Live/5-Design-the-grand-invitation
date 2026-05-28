@@ -163,8 +163,11 @@
     display: none;
 }
 
-.content-phase .socket.content-castle,
-.content-phase .socket.content-text {
+.content-text-phase .socket.content-text {
+    display: flex;
+}
+
+.content-castle-phase .socket.content-castle {
     display: flex;
 }
 

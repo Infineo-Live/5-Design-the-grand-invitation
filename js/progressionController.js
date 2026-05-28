@@ -33,27 +33,10 @@ export function checkBroochesPhaseCompletion() {
     if (progressionState.placedBroochesCount === 2) {
         setTimeout(() => {
             playSynthesizedSound('success');
-            changeGameState('content_phase');
+            changeGameState('content_text_phase');
         }, 600);
     } else {
         setInstructionText('Select and mount the final brooch');
-    }
-}
-
-export function checkContentPhaseCompletion() {
-    if (progressionState.placedContentCount === 2) {
-        setTimeout(() => {
-            playSynthesizedSound('success');
-            changeGameState('border_phase');
-        }, 600);
-    } else {
-        if (!progressionState.socketsState.castle.filled && !progressionState.socketsState.text.filled) {
-            setInstructionText('Tap the parchment areas to add the castle and text');
-        } else if (!progressionState.socketsState.castle.filled) {
-            setInstructionText('Tap the bottom scroll area to build the castle');
-        } else {
-            setInstructionText('Tap the top scroll area to write the invitation');
-        }
     }
 }
 
