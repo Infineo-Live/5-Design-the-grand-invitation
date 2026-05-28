@@ -1,7 +1,7 @@
-import { progressionState, checkGemsPhaseCompletion, checkCrownsPhaseCompletion, executeBorderTransformation } from './progressionController.js';
+import { progressionState, checkGemsPhaseCompletion, checkCrownsPhaseCompletion, checkContentPhaseCompletion, executeBorderTransformation } from './progressionController.js';
 import { playSynthesizedSound, initializeAudio } from './animationController.js';
 import { GEM_ASSETS, spawnParticleExplosion, resizeBackgroundCanvas, initializeCelebrationCanvas } from './assetController.js';
-import { currentGameState, changeGameState, setInstructionText, showInstructionBubble, setSocketsInstructionText } from './stateManager.js';
+import { currentGameState, changeGameState, setInstructionText, showInstructionBubble, setSocketsInstructionText, GAME_STATES } from './stateManager.js';
 
 let selectedDecorationType = null;
 let selectedDecorationColor = null;
@@ -41,8 +41,12 @@ function selectGemColor(color, element) {
     selectedDecorationColor = color;
     
     highlightEmptyGemSockets();
-    hasClickedGemOnce = true;
-    showInstructionBubble('sockets-instruction-bubble');
+    if (!hasClickedGemOnce) {
+        showInstructionBubble('sockets-instruction-bubble');
+        hasClickedGemOnce = true;
+    } else {
+        showInstructionBubble('scroll-instruction-bubble');
+    }
 }
 
 function selectCrownItem(element) {
@@ -56,8 +60,12 @@ function selectCrownItem(element) {
     selectedDecorationColor = element.dataset.crown;
     
     highlightEmptyCrownSockets();
-    hasClickedCrownOnce = true;
-    showInstructionBubble('crown-sockets-instruction-bubble');
+    if (!hasClickedCrownOnce) {
+        showInstructionBubble('crown-sockets-instruction-bubble');
+        hasClickedCrownOnce = true;
+    } else {
+        showInstructionBubble('scroll-instruction-bubble');
+    }
 }
 
 function highlightEmptyGemSockets() {
@@ -102,10 +110,24 @@ export function clearSocketHighlights() {
     });
 }
 
+export function activateContentSockets() {
+    clearSocketHighlights();
+    const contentSockets = ['castle', 'text'];
+    contentSockets.forEach(id => {
+        const cssClass = id === 'castle' ? 'content-castle' : 'content-text';
+        const socketElement = document.querySelector(`.socket.${cssClass}`);
+        if (socketElement && !progressionState.socketsState[id].filled) {
+            socketElement.classList.add('active');
+        }
+    });
+}
+
 function handleSocketClick(socketId, socketElement) {
     initializeAudio();
     
-    if (selectedDecorationType === 'gem' && ['tl', 'tr', 'bl', 'br'].includes(socketId)) {
+    if (currentGameState === GAME_STATES.CONTENT_PHASE && ['castle', 'text'].includes(socketId)) {
+        placeContentInSocket(socketId, socketElement);
+    } else if (selectedDecorationType === 'gem' && ['tl', 'tr', 'bl', 'br'].includes(socketId)) {
         placeGemInSocket(socketId, socketElement);
     } else if (selectedDecorationType === 'crown' && ['ct', 'cb'].includes(socketId)) {
         placeCrownInSocket(socketId, socketElement);
@@ -118,6 +140,7 @@ function getGemHexColor(color) {
     if (color === 'ruby') return '#e0115f';
     if (color === 'sapphire') return '#0f52ba';
     if (color === 'emerald') return '#50c878';
+    if (color === 'purple') return '#8a2be2';
     return '#ffd700';
 }
 
@@ -189,6 +212,43 @@ function placeGemInSocket(socketId, socketElement) {
     
     selectedDecorationType = null;
     selectedDecorationColor = null;
+}
+
+function placeContentInSocket(socketId, socketElement) {
+    if (progressionState.socketsState[socketId].filled) {
+        playSynthesizedSound('error');
+        return;
+    }
+    
+    progressionState.socketsState[socketId].filled = true;
+    progressionState.socketsState[socketId].type = socketId;
+    
+    const placedItem = document.getElementById(`placed-${socketId}`);
+    const imgFilename = socketId === 'castle' ? 'castle.png' : 'invite-text.png';
+    placedItem.style.backgroundImage = `url('assets/images/${imgFilename}')`;
+    placedItem.style.transform = 'translate(-50%, -50%) scale(0)';
+    placedItem.style.opacity = '0';
+    placedItem.style.transition = 'none';
+    
+    setTimeout(() => {
+        placedItem.classList.add('placed');
+        placedItem.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.5), opacity 0.15s ease';
+        placedItem.style.transform = 'translate(-50%, -50%) scale(1)';
+        placedItem.style.opacity = '1';
+        
+        const rect = socketElement.getBoundingClientRect();
+        const parentRect = socketElement.parentElement.getBoundingClientRect();
+        const px = rect.left - parentRect.left + rect.width / 2;
+        const py = rect.top - parentRect.top + rect.height / 2;
+        
+        spawnParticleExplosion(px, py, '#ffd700');
+        
+        progressionState.placedContentCount++;
+        checkContentPhaseCompletion();
+    }, 50);
+    
+    socketElement.classList.remove('active');
+    socketElement.classList.add('locked');
 }
 
 function placeCrownInSocket(socketId, socketElement) {

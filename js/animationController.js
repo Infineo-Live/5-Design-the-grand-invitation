@@ -19,7 +19,8 @@ export function triggerCinematicSequence() {
         document.getElementById('vid-frame-1'),
         document.getElementById('vid-frame-2'),
         document.getElementById('vid-frame-3'),
-        document.getElementById('vid-frame-4')
+        document.getElementById('vid-frame-4'),
+        document.getElementById('vid-frame-5')
     ];
     
     invitationCinematicFrames.forEach((frameElement, currentFrameIndex) => {
@@ -44,27 +45,31 @@ export function triggerCinematicSequence() {
         gameplayScreenElement.classList.remove('active');
         cinematicOverlayLayer.classList.add('active');
         
-        setTimeout(() => {
-            if (invitationCinematicFrames[0]) invitationCinematicFrames[0].classList.remove('active');
-            if (invitationCinematicFrames[1]) invitationCinematicFrames[1].classList.add('active');
-            
-            setTimeout(() => {
-                if (invitationCinematicFrames[1]) invitationCinematicFrames[1].classList.remove('active');
-                if (invitationCinematicFrames[2]) invitationCinematicFrames[2].classList.add('active');
-                
+        let currentFrameIndex = 0;
+        
+        function showNextFrame() {
+            if (currentFrameIndex < invitationCinematicFrames.length - 1) {
                 setTimeout(() => {
-                    if (invitationCinematicFrames[2]) invitationCinematicFrames[2].classList.remove('active');
-                    if (invitationCinematicFrames[3]) invitationCinematicFrames[3].classList.add('active');
-                    
-                    setTimeout(() => {
-                        cinematicOverlayLayer.classList.remove('active');
-                        invitationCinematicFrames.forEach(frameElement => {
-                            if (frameElement) frameElement.classList.remove('active');
-                        });
-                        changeGameState('celebration');
-                    }, finalCelebrationTransitionDelayMs);
+                    if (invitationCinematicFrames[currentFrameIndex]) {
+                        invitationCinematicFrames[currentFrameIndex].classList.remove('active');
+                    }
+                    currentFrameIndex++;
+                    if (invitationCinematicFrames[currentFrameIndex]) {
+                        invitationCinematicFrames[currentFrameIndex].classList.add('active');
+                    }
+                    showNextFrame();
                 }, cinematicFrameDisplayDurationMs);
-            }, cinematicFrameDisplayDurationMs);
-        }, cinematicFrameDisplayDurationMs);
+            } else {
+                setTimeout(() => {
+                    cinematicOverlayLayer.classList.remove('active');
+                    invitationCinematicFrames.forEach(frameElement => {
+                        if (frameElement) frameElement.classList.remove('active');
+                    });
+                    changeGameState('celebration');
+                }, finalCelebrationTransitionDelayMs);
+            }
+        }
+        
+        showNextFrame();
     }, screenFadeTransitionDelayMs);
 }

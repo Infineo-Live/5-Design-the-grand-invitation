@@ -295,6 +295,14 @@ body.game-started #start-screen {
     transform: translate(0, 0) rotate(35deg) scale(1);
 }
 
+.gem-selection-overlay.active .stone-pos-7 {
+    transform: translate(0, 0) rotate(-5deg) scale(1);
+}
+
+.gem-selection-overlay.active .stone-pos-8 {
+    transform: translate(0, 0) rotate(18deg) scale(1);
+}
+
 .gem-selection-overlay.active .selection-gem-item:nth-child(1) {
     transition-delay: 0.05s;
 }
@@ -317,6 +325,14 @@ body.game-started #start-screen {
 
 .gem-selection-overlay.active .selection-gem-item:nth-child(6) {
     transition-delay: 0.55s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(7) {
+    transition-delay: 0.65s;
+}
+
+.gem-selection-overlay.active .selection-gem-item:nth-child(8) {
+    transition-delay: 0.75s;
 }
 
 .stone-pos-1 {
@@ -347,6 +363,16 @@ body.game-started #start-screen {
 .stone-pos-6 {
     left: 168%;
     top: 56%;
+}
+
+.stone-pos-7 {
+    left: 122%;
+    top: 22%;
+}
+
+.stone-pos-8 {
+    left: 152%;
+    top: 58%;
 }
 
 .crown-selection-overlay {
@@ -537,4 +563,9 @@ body.game-started #start-screen {
 #crown-sockets-instruction-bubble {
     top: -13%;
     left: 3%;
+}
+
+#content-phase-bubble {
+    top: -13%;
+    left: 8%;
 }

@@ -5,13 +5,16 @@ import { spawnParticleExplosion } from './assetController.js';
 export const progressionState = {
     placedGemsCount: 0,
     placedCrownsCount: 0,
+    placedContentCount: 0,
     socketsState: {
         tl: { filled: false, type: null },
         tr: { filled: false, type: null },
         bl: { filled: false, type: null },
         br: { filled: false, type: null },
         ct: { filled: false, type: null },
-        cb: { filled: false, type: null }
+        cb: { filled: false, type: null },
+        castle: { filled: false, type: null },
+        text: { filled: false, type: null }
     }
 };
 
@@ -30,10 +33,27 @@ export function checkCrownsPhaseCompletion() {
     if (progressionState.placedCrownsCount === 2) {
         setTimeout(() => {
             playSynthesizedSound('success');
-            changeGameState('border_phase');
+            changeGameState('content_phase');
         }, 600);
     } else {
         setInstructionText('Select and mount the final crown');
+    }
+}
+
+export function checkContentPhaseCompletion() {
+    if (progressionState.placedContentCount === 2) {
+        setTimeout(() => {
+            playSynthesizedSound('success');
+            changeGameState('border_phase');
+        }, 600);
+    } else {
+        if (!progressionState.socketsState.castle.filled && !progressionState.socketsState.text.filled) {
+            setInstructionText('Tap the parchment areas to add the castle and text');
+        } else if (!progressionState.socketsState.castle.filled) {
+            setInstructionText('Tap the bottom scroll area to build the castle');
+        } else {
+            setInstructionText('Tap the top scroll area to write the invitation');
+        }
     }
 }
 

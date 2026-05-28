@@ -1,12 +1,13 @@
 import { resizeBackgroundCanvas, initializeBackgroundParticles, animateBackgroundParticles, initializeCelebrationCanvas, animateCelebrationRain } from './assetController.js';
 import { playSynthesizedSound, triggerCinematicSequence } from './animationController.js';
-import { registerEventHandlers, toggleGemOverlay, toggleCrownOverlay } from './interactionSystem.js';
+import { registerEventHandlers, toggleGemOverlay, toggleCrownOverlay, activateContentSockets } from './interactionSystem.js';
 
 export const GAME_STATES = {
     START_SCREEN: 'start_screen',
     SCROLL_ENTRY: 'scroll_entry',
     RUBY_PHASE: 'ruby_phase',
     CROWN_PHASE: 'crown_phase',
+    CONTENT_PHASE: 'content_phase',
     BORDER_PHASE: 'border_phase',
     FINALE_CINEMATIC: 'finale_cinematic',
     CELEBRATION: 'celebration'
@@ -21,11 +22,13 @@ export function changeGameState(nextState) {
     
     const gameplayScreen = document.getElementById('gameplay-screen');
     if (gameplayScreen) {
-        gameplayScreen.classList.remove('ruby-phase', 'crown-phase', 'border-phase');
+        gameplayScreen.classList.remove('ruby-phase', 'crown-phase', 'content-phase', 'border-phase');
         if (nextState === GAME_STATES.RUBY_PHASE) {
             gameplayScreen.classList.add('ruby-phase');
         } else if (nextState === GAME_STATES.CROWN_PHASE) {
             gameplayScreen.classList.add('crown-phase');
+        } else if (nextState === GAME_STATES.CONTENT_PHASE) {
+            gameplayScreen.classList.add('content-phase');
         } else if (nextState === GAME_STATES.BORDER_PHASE) {
             gameplayScreen.classList.add('border-phase');
         }
@@ -68,6 +71,15 @@ export function changeGameState(nextState) {
         showInstructionBubble('crown-button-bubble');
     }
     
+    if (nextState === GAME_STATES.CONTENT_PHASE) {
+        document.getElementById('gameplay-screen').classList.add('active');
+        setInstructionText('Tap the parchment areas to add the castle and text');
+        toggleCrownOverlay(false);
+        updateActionButtons();
+        showInstructionBubble('content-phase-bubble');
+        activateContentSockets();
+    }
+    
     if (nextState === GAME_STATES.BORDER_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Press Assemble to finalize the border magic');
@@ -106,7 +118,8 @@ export function showInstructionBubble(activeBubbleId) {
         'sockets-instruction-bubble',
         'crown-button-bubble',
         'select-crown-guide-bubble',
-        'crown-sockets-instruction-bubble'
+        'crown-sockets-instruction-bubble',
+        'content-phase-bubble'
     ];
     speechBubbleContainerIds.forEach(bubbleId => {
         const bubbleContainerElement = document.getElementById(bubbleId);

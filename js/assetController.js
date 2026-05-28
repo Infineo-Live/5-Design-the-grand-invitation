@@ -1,7 +1,8 @@
 export const GEM_ASSETS = {
     ruby: 'assets/images/ruby.png',
     sapphire: 'assets/images/saphire.png',
-    emerald: 'assets/images/emerald.png'
+    emerald: 'assets/images/emerald.png',
+    purple: 'assets/images/purple.png'
 };
 
 let backgroundParticles = [];
@@ -95,7 +96,7 @@ export function initializeCelebrationCanvas() {
 
 function spawnCelebrationRain() {
     const width = rainCanvasElement.width;
-    const colors = ['#ffd700', '#d4af37', '#aa8410', '#e0115f', '#0f52ba', '#50c878'];
+    const colors = ['#ffd700', '#d4af37', '#aa8410', '#e0115f', '#0f52ba', '#50c878', '#8a2be2'];
     
     if (Math.random() < 0.25) {
         celebrationParticles.push({
