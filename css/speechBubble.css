@@ -14,9 +14,8 @@
     border-radius: 50%;
     width: auto;
     height: auto;
-    background: var(--color-glass-bg);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 0.4cqh 0.8cqh rgba(0, 0, 0, 0.4);
+    background: #eaddc0;
+    box-shadow: 0 0.5cqh 1cqh rgba(0, 0, 0, 0.65), 0 0 1cqh var(--color-gold-glow);
     opacity: 0;
     transform: scale(0);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
@@ -61,17 +60,20 @@
     padding: 2cqh 3cqh;
     width: 32cqw;
     max-width: 280px;
-    background: rgba(26, 11, 46, 0.95);
+    background: linear-gradient(135deg, #eaddc0 0%, #cca977 100%);
+    border: 0.25cqh solid var(--color-gold);
+    box-shadow: 0 0.8cqh 2.5cqh rgba(0, 0, 0, 0.45), 0 0 1.5cqh var(--color-gold-glow);
     text-align: center;
 }
 
 .speech-bubble-text {
     margin: 0;
-    font-family: var(--font-royal);
-    font-size: 1.8cqh;
-    font-weight: 600;
+    font-family: var(--font-speech);
+    font-size: 2.4cqh;
+    font-weight: 700;
     line-height: 1.4;
-    color: var(--color-gold-bright);
+    color: #1a0b2e;
+    text-shadow: 0 0.05cqh 0.1cqh rgba(255, 255, 255, 0.4);
     transition: opacity 0.25s ease;
 }
 
@@ -104,9 +106,12 @@
 }
 
 @keyframes bubbleSoftFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-0.8cqh);
     }

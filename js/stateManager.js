@@ -17,9 +17,9 @@ export let currentGameState = GAME_STATES.START_SCREEN;
 
 export function changeGameState(nextState) {
     currentGameState = nextState;
-    
+
     document.querySelectorAll('.screen').forEach(scr => scr.classList.remove('active'));
-    
+
     const gameplayScreen = document.getElementById('gameplay-screen');
     if (gameplayScreen) {
         gameplayScreen.classList.remove('ruby-phase', 'brooch-phase', 'content-phase', 'border-phase');
@@ -33,20 +33,20 @@ export function changeGameState(nextState) {
             gameplayScreen.classList.add('border-phase');
         }
     }
-    
+
     if (nextState === GAME_STATES.START_SCREEN) {
         document.body.classList.remove('game-started');
         document.body.classList.remove('game-ended');
         document.getElementById('start-screen').classList.add('active');
         document.getElementById('bg-canvas').style.display = 'block';
     }
-    
+
     if (nextState === GAME_STATES.SCROLL_ENTRY) {
         document.body.classList.add('game-started');
         document.getElementById('gameplay-screen').classList.add('active');
         const scrollWrapper = document.getElementById('scroll-wrapper');
         scrollWrapper.style.transform = 'translateY(800px) scale(0.5)';
-        
+
         setTimeout(() => {
             scrollWrapper.style.transform = 'translateY(0) scale(1)';
             playSynthesizedSound('success');
@@ -55,14 +55,14 @@ export function changeGameState(nextState) {
             }, 1000);
         }, 100);
     }
-    
+
     if (nextState === GAME_STATES.RUBY_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Choose a gem from the bottom shelf to place');
         updateActionButtons();
         showInstructionBubble('gems-button-bubble');
     }
-    
+
     if (nextState === GAME_STATES.BROOCH_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Select the royal brooch to cap the handles');
@@ -70,7 +70,7 @@ export function changeGameState(nextState) {
         updateActionButtons();
         showInstructionBubble('brooch-button-bubble');
     }
-    
+
     if (nextState === GAME_STATES.CONTENT_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
         setInstructionText('Tap the parchment areas to add the castle and text');
@@ -79,31 +79,31 @@ export function changeGameState(nextState) {
         showInstructionBubble('content-phase-bubble');
         activateContentSockets();
     }
-    
+
     if (nextState === GAME_STATES.BORDER_PHASE) {
         document.getElementById('gameplay-screen').classList.add('active');
-        setInstructionText('Press Assemble to finalize the border magic');
+        setInstructionText('Tap the Frame Button to Finalize the Royal Border');
         toggleBroochOverlay(false);
         updateActionButtons();
         showInstructionBubble('scroll-instruction-bubble');
     }
-    
+
     if (nextState === GAME_STATES.FINALE_CINEMATIC) {
         showInstructionBubble(null);
         triggerCinematicSequence();
     }
-    
+
     if (nextState === GAME_STATES.CELEBRATION) {
         showInstructionBubble(null);
         document.body.classList.add('game-ended');
         document.getElementById('celebration-screen').classList.add('active');
         initializeCelebrationCanvas();
         animateCelebrationRain();
-        
+
         setTimeout(() => {
             const charContainer = document.getElementById('celebration-character');
             if (charContainer) charContainer.classList.add('active');
-            
+
             const textContainer = document.getElementById('celebration-text');
             if (textContainer) textContainer.classList.add('active');
         }, 300);
@@ -158,15 +158,15 @@ function updateActionButtons() {
     const btnRuby = document.getElementById('btn-ruby');
     const btnBrooch = document.getElementById('btn-brooch');
     const btnBorder = document.getElementById('btn-border');
-    
+
     btnRuby.classList.add('disabled');
     btnBrooch.classList.add('disabled');
     btnBorder.classList.add('disabled');
-    
+
     btnRuby.classList.remove('greyed-out');
     btnBrooch.classList.remove('greyed-out');
     btnBorder.classList.remove('greyed-out');
-    
+
     if (currentGameState === GAME_STATES.RUBY_PHASE) {
         btnRuby.classList.remove('disabled');
     } else if (currentGameState === GAME_STATES.BROOCH_PHASE) {

@@ -210,10 +210,10 @@ body.game-started #start-screen {
 
 .side-shelf {
     position: absolute;
-    left: 30cqh;
+    left: 40cqh;
     top: 50%;
     transform: translateY(-50%);
-    width: 22cqh;
+    width: 20cqh;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -236,6 +236,11 @@ body.game-started #start-screen {
     align-items: center;
     cursor: pointer;
     position: relative;
+}
+
+#btn-border .btn-icon {
+    width: 120%;
+    height: 120%;
 }
 
 .gem-selection-overlay {
@@ -336,7 +341,7 @@ body.game-started #start-screen {
 }
 
 .stone-pos-1 {
-    left: 80%;
+    left: 85%;
     top: 58%;
 }
 
@@ -361,7 +366,7 @@ body.game-started #start-screen {
 }
 
 .stone-pos-6 {
-    left: 168%;
+    left: 110%;
     top: 56%;
 }
 
@@ -546,7 +551,7 @@ body.game-started #start-screen {
 }
 
 #select-gem-guide-bubble {
-    top: 0%;
+    top: -6%;
     left: 22%;
 }
 
@@ -566,6 +571,6 @@ body.game-started #start-screen {
 }
 
 #content-phase-bubble {
-    top: -13%;
-    left: 8%;
+    top: 20%;
+    left: 20%;
 }

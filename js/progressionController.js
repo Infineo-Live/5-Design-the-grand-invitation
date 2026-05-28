@@ -25,7 +25,7 @@ export function checkGemsPhaseCompletion() {
             changeGameState('brooch_phase');
         }, 600);
     } else {
-        setInstructionText('Choose another gem for the remaining corners');
+        setInstructionText('Choose another gem from the remaining one`s');
     }
 }
 
@@ -60,13 +60,13 @@ export function checkContentPhaseCompletion() {
 export function executeBorderTransformation() {
     initializeAudio();
     playSynthesizedSound('success');
-    
+
     document.getElementById('btn-border').classList.add('disabled');
-    
+
     setTimeout(() => {
         const scrollParchment = document.getElementById('scroll-parchment');
         scrollParchment.style.opacity = 0;
-        
+
         const placedCastle = document.getElementById('placed-castle');
         const placedText = document.getElementById('placed-text');
         if (placedCastle) {
@@ -79,17 +79,17 @@ export function executeBorderTransformation() {
             placedText.style.transform = 'translate(-50%, -50%) scale(0)';
             placedText.style.opacity = 0;
         }
-        
+
         setTimeout(() => {
             scrollParchment.src = 'assets/images/invite-template-2.png';
             scrollParchment.style.opacity = 1;
-            
+
             const rect = scrollParchment.getBoundingClientRect();
             const px = rect.width / 2;
             const py = rect.height / 2;
             spawnParticleExplosion(px, py - 100, '#ffd700');
             spawnParticleExplosion(px, py + 100, '#ffd700');
-            
+
             setTimeout(() => {
                 changeGameState('finale_cinematic');
             }, 1200);

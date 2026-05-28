@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="css/speechBubble.css?v=9">
     <link rel="stylesheet" href="css/animations.css?v=9">
 </head>
+
 <body>
     <div class="background-image start-bg"></div>
     <div class="background-image game-bg"></div>
@@ -65,7 +67,8 @@
                 <div class="bubble-dot dot-3"></div>
                 <div class="speech-bubble-wrapper">
                     <div class="bubble-body">
-                        <p class="speech-bubble-text" id="sockets-bubble-text">Click the gems and then click the socket to place them there</p>
+                        <p class="speech-bubble-text" id="sockets-bubble-text">Click on the socket to place them there
+                        </p>
                     </div>
                 </div>
             </div>
@@ -104,8 +107,9 @@
             </div>
 
             <div class="scroll-container" id="scroll-wrapper">
-                <img src="assets/images/invite-template-1.png" alt="Royal Parchment" class="scroll-base" id="scroll-parchment">
-                
+                <img src="assets/images/invite-template-1.png" alt="Royal Parchment" class="scroll-base"
+                    id="scroll-parchment">
+
                 <div class="interactive-layer">
                     <div class="socket gem-tl pos-gem-tl" data-socket="tl"></div>
                     <div class="socket gem-tr pos-gem-tr" data-socket="tr"></div>
@@ -189,11 +193,13 @@
         <div id="celebration-screen" class="screen">
             <canvas class="celebration-canvas" id="rain-canvas"></canvas>
             <div class="result-text-container" id="celebration-text">
-                <img src="assets/images/result-text.png" alt="Invitation Assembled Successfully" class="result-text-img">
+                <img src="assets/images/result-text.png" alt="Invitation Assembled Successfully"
+                    class="result-text-img">
             </div>
         </div>
     </div>
 
     <script type="module" src="js/stateManager.js"></script>
 </body>
+
 </html>
