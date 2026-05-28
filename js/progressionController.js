@@ -25,7 +25,7 @@ export function checkGemsPhaseCompletion() {
             changeGameState('brooch_phase');
         }, 600);
     } else {
-        setInstructionText('Choose another gem from the remaining one`s');
+        setInstructionText('Choose another gem from the remaining ones');
     }
 }
 
