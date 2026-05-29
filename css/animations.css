@@ -32,7 +32,8 @@
 }
 
 .socket.active::before {
-    border-color: var(--color-gold);
+    border-color: var(--color-gold-bright);
+    box-shadow: 0 0 1.5cqw var(--color-gold), inset 0 0 1cqw var(--color-gold);
     background: rgba(212, 175, 55, 0.1);
 }
 

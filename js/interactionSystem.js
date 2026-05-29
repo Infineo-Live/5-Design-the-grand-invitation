@@ -400,7 +400,8 @@ export function registerEventHandlers() {
         this.classList.add('greyed-out');
         toggleGemOverlay(true);
         clearSocketHighlights();
-        highlightEmptyGemSockets();
+        // Sockets do not brighten immediately when the category is selected.
+        // They will brighten the moment a specific gem is clicked from the selection overlay.
         if (hasClickedGemOnce) {
             showInstructionBubble('scroll-instruction-bubble');
         } else {
@@ -473,7 +474,12 @@ export function registerEventHandlers() {
 
     document.querySelectorAll('.socket').forEach(socket => {
         socket.addEventListener('mouseenter', function () {
-            if (this.classList.contains('active')) {
+            const isGemSocket = ['tl', 'tr', 'bl', 'br'].includes(this.dataset.socket);
+            const isFilled = this.classList.contains('locked');
+            
+            // Gem sockets highlight on hover by default unless they are already filled.
+            // Other sockets only highlight on hover if they are active.
+            if (!isFilled && (isGemSocket || this.classList.contains('active'))) {
                 playSynthesizedSound('hover');
                 this.classList.add('highlighted');
             }

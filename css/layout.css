@@ -467,7 +467,7 @@ body.game-started #start-screen {
     height: 100%;
     object-fit: cover;
     outline: none;
-    transform: scale(1.25);
+    transform: scale(0.8);
     transform-origin: center center;
 }
 
@@ -756,15 +756,14 @@ body.game-started #start-screen {
     }
 }
 
-/* Responsive Game Logo Watermark */
 .game-logo {
     position: absolute;
-    bottom: 3.5cqh;
+    top: 3.5cqh;
     left: 3.5cqw;
     height: 5.5cqh;
     width: auto;
     z-index: 200;
     pointer-events: none;
     opacity: 0.85;
-    filter: drop-shadow(0 0.8cqh 1.2cqh rgba(0, 0, 0, 0.75));
+    filter: brightness(0) invert(1) drop-shadow(0 0.8cqh 1.2cqh rgba(0, 0, 0, 0.75));
 }

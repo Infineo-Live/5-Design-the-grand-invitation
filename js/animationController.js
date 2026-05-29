@@ -37,22 +37,8 @@ export function playSynthesizedSound(soundType) {
         audio = preloadedAudio.writing;
         volume = 0.9;
     } else if (soundType === 'result') {
-        const bgMusic = preloadedAudio.bgMusic;
-        if (bgMusic) {
-            bgMusic.pause();
-        }
         audio = preloadedAudio.result;
         volume = 0.2;
-
-        if (audio) {
-            audio.addEventListener('ended', () => {
-                if (bgMusic) {
-                    bgMusic.play().catch(err => {
-                        console.warn("Failed to resume background music after result sound:", err);
-                    });
-                }
-            }, { once: true });
-        }
     }
 
     if (audio) {
@@ -78,12 +64,28 @@ export function triggerCinematicSequence() {
         gameplayScreenElement.classList.remove('active');
         cinematicOverlayLayer.classList.add('active');
 
+        const bgMusic = preloadedAudio.bgMusic;
+
         if (cinematicVideo) {
+            // Pause background music during cinematic video
+            if (bgMusic) {
+                bgMusic.pause();
+            }
+
             cinematicVideo.currentTime = 0;
-            cinematicVideo.muted = true;
+            cinematicVideo.muted = false;
 
             const handleVideoEnded = () => {
                 cinematicOverlayLayer.classList.remove('active');
+                
+                // Play/resume bg music in loop on the result screen
+                if (bgMusic) {
+                    bgMusic.loop = true;
+                    bgMusic.play().catch(err => {
+                        console.warn("Failed to resume background music after video:", err);
+                    });
+                }
+                
                 changeGameState('celebration');
             };
 
@@ -97,7 +99,13 @@ export function triggerCinematicSequence() {
                 handleVideoEnded();
             });
         } else {
-            // Fallback: if video element doesn't exist
+            // Fallback: if video element doesn't exist, ensure bgMusic is playing
+            if (bgMusic) {
+                bgMusic.loop = true;
+                bgMusic.play().catch(err => {
+                    console.warn("Failed to play background music:", err);
+                });
+            }
             cinematicOverlayLayer.classList.remove('active');
             changeGameState('celebration');
         }
