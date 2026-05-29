@@ -6,7 +6,7 @@ export function initializeAudio() {
     const bgMusic = preloadedAudio.bgMusic;
     if (bgMusic && bgMusic.paused) {
         bgMusic.loop = true;
-        bgMusic.volume = 0.04; // Very subtle
+        bgMusic.volume = 0.03; // Very subtle
         bgMusic.play().catch(err => {
             console.warn("Background music play deferred:", err);
         });
@@ -26,7 +26,7 @@ if (typeof window !== 'undefined') {
 export function playSynthesizedSound(soundType) {
     let audio = null;
     let volume = 1.0;
-    
+
     if (soundType === 'click') {
         audio = preloadedAudio.click;
         volume = 0.35;
@@ -43,8 +43,18 @@ export function playSynthesizedSound(soundType) {
         }
         audio = preloadedAudio.result;
         volume = 0.2;
+
+        if (audio) {
+            audio.addEventListener('ended', () => {
+                if (bgMusic) {
+                    bgMusic.play().catch(err => {
+                        console.warn("Failed to resume background music after result sound:", err);
+                    });
+                }
+            }, { once: true });
+        }
     }
-    
+
     if (audio) {
         audio.volume = volume;
         audio.currentTime = 0;
