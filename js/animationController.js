@@ -1,16 +1,14 @@
 import { changeGameState } from './stateManager.js';
 import { spawnParticleExplosion } from './assetController.js';
-
-let bgMusic = null;
+import { preloadedAudio } from './assetLoader.js';
 
 export function initializeAudio() {
-    if (!bgMusic) {
-        bgMusic = new Audio('assets/sounds/bg-music.mp3');
+    const bgMusic = preloadedAudio.bgMusic;
+    if (bgMusic && bgMusic.paused) {
         bgMusic.loop = true;
         bgMusic.volume = 0.04; // Very subtle
         bgMusic.play().catch(err => {
             console.warn("Background music play deferred:", err);
-            bgMusic = null; // Try again on next click/touch
         });
     }
 }
@@ -26,32 +24,32 @@ if (typeof window !== 'undefined') {
 }
 
 export function playSynthesizedSound(soundType) {
+    let audio = null;
+    let volume = 1.0;
+    
     if (soundType === 'click') {
-        const clickSound = new Audio('assets/sounds/click.mp3');
-        clickSound.volume = 0.35; // Audible click sound
-        clickSound.play().catch(err => {
-            console.warn("Click sound play failed:", err);
-        });
+        audio = preloadedAudio.click;
+        volume = 0.35;
     } else if (soundType === 'snap' || soundType === 'success') {
-        const placingSound = new Audio('assets/sounds/placing.mp3');
-        placingSound.volume = 0.5; // Audible placing sound
-        placingSound.play().catch(err => {
-            console.warn("Placing sound play failed:", err);
-        });
+        audio = preloadedAudio.placing;
+        volume = 0.5;
     } else if (soundType === 'writing') {
-        const writingSound = new Audio('assets/sounds/writing.mp3');
-        writingSound.volume = 0.9; // Audible writing sound
-        writingSound.play().catch(err => {
-            console.warn("Writing sound play failed:", err);
-        });
+        audio = preloadedAudio.writing;
+        volume = 0.9;
     } else if (soundType === 'result') {
+        const bgMusic = preloadedAudio.bgMusic;
         if (bgMusic) {
             bgMusic.pause();
         }
-        const resultSound = new Audio('assets/sounds/result.mp3');
-        resultSound.volume = 0.2; // Reduced sound volume as requested
-        resultSound.play().catch(err => {
-            console.warn("Result sound play failed:", err);
+        audio = preloadedAudio.result;
+        volume = 0.2;
+    }
+    
+    if (audio) {
+        audio.volume = volume;
+        audio.currentTime = 0;
+        audio.play().catch(err => {
+            console.warn(`${soundType} sound play failed:`, err);
         });
     }
 }

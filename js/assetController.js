@@ -16,12 +16,66 @@ let rainContext = rainCanvasElement.getContext('2d');
 let bgAnimationId = null;
 let rainAnimationId = null;
 
+let glowCacheCanvas = null;
+let coinCacheCanvas = null;
+
+function initGlowCaches() {
+    if (!glowCacheCanvas) {
+        glowCacheCanvas = document.createElement('canvas');
+        const size = 16;
+        const padding = 16;
+        glowCacheCanvas.width = (size + padding) * 2;
+        glowCacheCanvas.height = (size + padding) * 2;
+        const ctx = glowCacheCanvas.getContext('2d');
+        const center = glowCacheCanvas.width / 2;
+        
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#d4af37';
+        ctx.fillStyle = 'rgba(212, 175, 55, 0.85)';
+        
+        ctx.beginPath();
+        ctx.arc(center, center, size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    if (!coinCacheCanvas) {
+        coinCacheCanvas = document.createElement('canvas');
+        const size = 20;
+        const padding = 6;
+        coinCacheCanvas.width = (size + padding) * 2;
+        coinCacheCanvas.height = (size + padding) * 2;
+        const ctx = coinCacheCanvas.getContext('2d');
+        const center = coinCacheCanvas.width / 2;
+        
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#ffd700';
+        
+        const grad = ctx.createRadialGradient(center, center, 2, center, center, size);
+        grad.addColorStop(0, '#fff3a8');
+        grad.addColorStop(0.4, '#ffd700');
+        grad.addColorStop(0.8, '#d4af37');
+        grad.addColorStop(1, '#8a6405');
+        
+        ctx.beginPath();
+        ctx.arc(center, center, size, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.arc(center, center, size * 0.7, 0, Math.PI * 2);
+        ctx.strokeStyle = '#8a6405';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+}
+
 export function resizeBackgroundCanvas() {
     bgCanvasElement.width = window.innerWidth;
     bgCanvasElement.height = window.innerHeight;
 }
 
 export function initializeBackgroundParticles() {
+    initGlowCaches();
     backgroundParticles = [];
     const count = 45;
     for (let i = 0; i < count; i++) {
@@ -38,7 +92,6 @@ export function initializeBackgroundParticles() {
 
 export function animateBackgroundParticles() {
     bgContext.clearRect(0, 0, bgCanvasElement.width, bgCanvasElement.height);
-    bgContext.fillStyle = 'rgba(212, 175, 55, 0.3)';
     
     backgroundParticles.forEach(particle => {
         particle.y += particle.speedY;
@@ -52,15 +105,18 @@ export function animateBackgroundParticles() {
             particle.speedX = -particle.speedX;
         }
         
-        bgContext.beginPath();
-        bgContext.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        bgContext.fillStyle = `rgba(212, 175, 55, ${particle.opacity})`;
-        bgContext.shadowBlur = 8;
-        bgContext.shadowColor = '#d4af37';
-        bgContext.fill();
+        const drawSize = particle.size * 6;
+        bgContext.globalAlpha = particle.opacity;
+        bgContext.drawImage(
+            glowCacheCanvas,
+            particle.x - drawSize / 2,
+            particle.y - drawSize / 2,
+            drawSize,
+            drawSize
+        );
     });
     
-    bgContext.shadowBlur = 0;
+    bgContext.globalAlpha = 1.0;
     bgAnimationId = requestAnimationFrame(animateBackgroundParticles);
 }
 
@@ -90,6 +146,7 @@ export function spawnParticleExplosion(x, y, color) {
 }
 
 export function initializeCelebrationCanvas() {
+    initGlowCaches();
     rainCanvasElement.width = rainCanvasElement.parentElement.clientWidth;
     rainCanvasElement.height = rainCanvasElement.parentElement.clientHeight;
 }
@@ -185,27 +242,15 @@ export function animateCelebrationRain() {
             rainContext.rotate(particle.rotation);
             rainContext.scale(Math.sin(particle.rotation * 2), 1);
             
-            const grad = rainContext.createRadialGradient(0, 0, 1, 0, 0, particle.size);
-            grad.addColorStop(0, '#fff3a8');
-            grad.addColorStop(0.4, '#ffd700');
-            grad.addColorStop(0.8, '#d4af37');
-            grad.addColorStop(1, '#8a6405');
-            
-            rainContext.beginPath();
-            rainContext.arc(0, 0, particle.size, 0, Math.PI * 2);
-            rainContext.fillStyle = grad;
-            rainContext.shadowBlur = 4;
-            rainContext.shadowColor = '#ffd700';
-            rainContext.fill();
-            
-            rainContext.beginPath();
-            rainContext.arc(0, 0, particle.size * 0.7, 0, Math.PI * 2);
-            rainContext.strokeStyle = '#8a6405';
-            rainContext.lineWidth = 1;
-            rainContext.stroke();
+            rainContext.drawImage(
+                coinCacheCanvas,
+                -particle.size * 1.3,
+                -particle.size * 1.3,
+                particle.size * 2.6,
+                particle.size * 2.6
+            );
             
             rainContext.restore();
-            rainContext.shadowBlur = 0;
         }
         
         else if (particle.type === 'star') {

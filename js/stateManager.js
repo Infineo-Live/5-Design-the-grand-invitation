@@ -1,6 +1,7 @@
 import { resizeBackgroundCanvas, initializeBackgroundParticles, animateBackgroundParticles, initializeCelebrationCanvas, animateCelebrationRain } from './assetController.js';
 import { playSynthesizedSound, triggerCinematicSequence } from './animationController.js';
 import { registerEventHandlers, toggleGemOverlay, toggleBroochOverlay, activateContentSockets } from './interactionSystem.js';
+import { preloadAll } from './assetLoader.js';
 
 export const GAME_STATES = {
     START_SCREEN: 'start_screen',
@@ -212,7 +213,11 @@ const secureGameEnvironment = () => {
     });
 
     // 3. The "Labyrinth Light" (Simple Debugger Check)
-    if (typeof console !== "undefined") {
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.protocol === 'file:';
+                        
+    if (!isLocalhost && typeof console !== "undefined") {
         setInterval(() => {
             const start = performance.now();
             debugger;
@@ -240,6 +245,10 @@ function startApplication() {
     initializeBackgroundParticles();
     animateBackgroundParticles();
     registerEventHandlers();
+    
+    // Start preloading royal assets silently in the background
+    preloadAll();
+    
     changeGameState(GAME_STATES.START_SCREEN);
 }
 
