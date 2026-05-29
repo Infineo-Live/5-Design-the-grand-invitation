@@ -117,6 +117,7 @@ The illusion of depth comes from:
 │
 └── /js
       stateManager.js
+      assetLoader.js
       assetController.js
       interactionSystem.js
       animationController.js
@@ -132,16 +133,14 @@ The game should operate through a centralized state manager.
 ## Master States
 
 ```js
-const GAME_STATE = {
+export const GAME_STATES = {
     START_SCREEN: 'start_screen',
-    SCROLL_ENTRY: 'scroll_entry',
     RUBY_PHASE: 'ruby_phase',
     BROOCH_PHASE: 'brooch_phase',
+    CONTENT_TEXT_PHASE: 'content_text_phase',
+    CONTENT_CASTLE_PHASE: 'content_castle_phase',
     BORDER_PHASE: 'border_phase',
-    LOGO_PHASE: 'logo_phase',
-    HEADER_PHASE: 'header_phase',
-    MIDDLE_PHASE: 'middle_phase',
-    FINALE_VIDEO: 'finale_video',
+    FINALE_CINEMATIC: 'finale_cinematic',
     CELEBRATION: 'celebration'
 };
 ```
@@ -443,12 +442,13 @@ base_parchment_scroll.webp
 
 ## Systems Activated
 
-- ruby button
-- brooch button
+- ruby button (`btn-ruby`)
+- brooch button (`btn-brooch`)
+- border button (`btn-border`)
 
 ## Gameplay Goal
 
-Introduce workspace.
+Introduce workspace and guide player to decorate corners.
 
 ---
 
@@ -459,72 +459,60 @@ Introduce workspace.
 Player presses:
 
 ```txt
-btn_ruby_placement.webp
+btn_ruby_placement.webp (via GEMS shelf button)
 ```
 
 ## Assets Spawned
 
 ```txt
-ruby_red.webp
-ruby_blue.webp
-ruby_green.webp
+ruby.webp (Red Ruby)
+saphire.webp (Blue Sapphire)
+emerald.webp (Green Emerald)
+purple.webp (Purple Amethyst)
 ```
 
 ## Spawn Count
 
-6 total rubies.
+4 selectable gems.
 
 ## Logic System
 
 ### Step 1
 
-Rubies animate onto parchment.
+Gems drawer translates up onto screen shelf.
 
 ### Step 2
 
-Handle sockets glow.
+Scroll corner sockets (Top Left, Top Right, Bottom Left, Bottom Right) start glowing.
 
 ### Step 3
 
-Player selects ruby.
+Player selects a gem from the shelf.
 
 ### Step 4
 
-Player selects socket.
+Player selects a glowing corner socket.
 
 ### Step 5
 
-Ruby snaps into place.
+Selected gem flies from shelf to socket with rotating scale ease.
 
 ### Step 6
 
-Placement counter increases.
-
-```js
-placedRubies++;
-```
+Upon impact, gem snaps, spawns gold dust particles, locks, and increments `placedGemsCount`.
 
 ### Step 7
 
 When:
 
 ```js
-placedRubies === 4
+placedGemsCount === 4
 ```
 
 Execute:
-
-- remove remaining rubies
-- unlock brooch phase
-
-## Ruby Socket Map
-
-```txt
-Top Left
-Top Right
-Bottom Left
-Bottom Right
-```
+- Fade out gems shelf menu
+- Play success fanfare
+- Automatically transition to Brooch Phase after 600ms
 
 ---
 
@@ -535,92 +523,172 @@ Bottom Right
 Player presses:
 
 ```txt
-btn_brooch_placement.webp
+btn_brooch_placement.webp (via BROOCH shelf button)
 ```
 
 ## Assets Spawned
 
 ```txt
-golden_brooch.webp
+brooch-1.webp
+brooch-2.webp
 ```
 
 ## Spawn Count
 
-## Spawn Count
-
-2 brooches.
+2 selectable handle brooches.
 
 ## Logic System
 
 ### Step 1
 
-Brooches slide and rotate onto parchment.
+Brooch drawer translates up onto screen shelf.
 
 ### Step 2
 
-Target areas glow.
+Scroll handle sockets start glowing.
 
 ### Step 3
 
-Player selects brooch.
+Player selects a brooch from the shelf.
 
 ### Step 4
 
-Player selects handle target.
+Player selects a glowing handle socket.
 
 ### Step 5
 
-Brooch snaps into place.
+Selected brooch flies with rotation ease from shelf to socket.
 
 ### Step 6
 
-Increment:
-
-```js
-placedBrooches++;
-```
+Upon impact, brooch snaps, spawns gold dust, locks, and increments `placedBroochesCount`.
 
 ### Step 7
 
 When:
 
 ```js
-placedBrooches === 2
+placedBroochesCount === 2
 ```
 
-Unlock border button.
+Execute:
+- Fade out brooch shelf menu
+- Play success fanfare
+- Automatically transition to Content Text Phase after 600ms
 
 ---
 
-# Phase 4 — Border Transformation
+# Phase 4 — Content Text Phase
 
 ## Trigger
 
-Player presses:
+Transitioned automatically from Brooch Phase.
+
+## Assets Spawned
 
 ```txt
-btn_border_assemble.webp
+pen.webp (Floating Quill Pen)
 ```
 
-## Main Event
+## Logic System
 
-Replace:
+### Step 1
+
+Display speech bubble prompting player to click the Quill Pen.
+
+### Step 2
+
+Player clicks the Quill Pen.
+
+### Step 3
+
+Center-scroll socket starts glowing.
+
+### Step 4
+
+Player clicks the center-scroll socket.
+
+### Step 5
+
+Quill Pen stamps onto center scroll, plays writing sound effect, spawns gold particles, and renders `invite-text.webp` script overlay.
+
+### Step 6
+
+Automatically transition to Content Castle Phase after 600ms.
+
+---
+
+# Phase 5 — Content Castle Phase
+
+## Trigger
+
+Transitioned automatically from Content Text Phase.
+
+## Assets Spawned
 
 ```txt
-base_parchment_scroll.webp
+castle.webp (Floating Castle Model)
 ```
 
-With:
+## Logic System
 
-```txt
-transformed_premium_scroll.webp
-```
+### Step 1
 
-## Gameplay Effect
+Display speech bubble prompting player to click the Castle Model.
 
-This is the major visual payoff moment.
+### Step 2
 
-The invitation transforms into its final royal version.
+Player clicks the Castle Model.
+
+### Step 3
+
+Top-center scroll socket starts glowing.
+
+### Step 4
+
+Player clicks the top-center scroll socket.
+
+### Step 5
+
+Castle Model stamps onto top-center, plays snap sound, spawns gold particles, and renders castle sigil overlay.
+
+### Step 6
+
+Automatically transition to Border Phase after 600ms.
+
+---
+
+# Phase 6 — Border Transformation
+
+## Trigger
+
+Transitioned automatically from Content Castle Phase.
+
+## Systems Activated
+
+- Border button (`btn-border` / Frame Button) enabled and glows.
+
+## Logic System
+
+### Step 1
+
+Display speech bubble prompting player to click the Frame Button to finalize the border.
+
+### Step 2
+
+Player clicks the Frame Button (`btn-border`).
+
+### Step 3
+
+Frame Button disables. Base scroll elements and content fade out/shrink.
+
+### Step 4
+
+Scroll texture is swapped with `invite-template-2.webp` (fully completed royal invitation) with a double gold particle explosion.
+
+### Step 5
+
+Automatically transition to Finale Cinematic after 1.2 seconds.
 
 ---
 
@@ -735,20 +803,22 @@ This creates:
 
 ## Why This Structure Is Efficient
 
-The game avoids:
+The game avoids real 3D rendering, heavy runtime lighting calculations, and physics simulations, relying on pre-rendered assets. Furthermore, it incorporates advanced optimization strategies to guarantee responsive mobile playback:
 
-- real 3D rendering
-- physics simulation
-- dynamic mesh generation
-- runtime lighting
-- particle engines
+### 1. Silent Background Asset Preloader
+All 20+ decoration assets (WebP) and sound effects (MP3) are preloaded asynchronously into the browser's disk/memory cache using `assetLoader.js` immediately on window load. This prevents on-demand network delays, layout shifts, or graphic pop-in when swapping templates or placing decorations.
 
-Everything is:
+### 2. Audio Node Reuse
+Rather than instantiating new `Audio` nodes on every click or placement action (which triggers garbage collection spikes and decoding latency), the audio subsystem preloads and stores singleton audio objects. Playback is triggered instantly by resetting `currentTime = 0` and calling `play()`.
 
-- pre-rendered
-- state-controlled
-- lightweight
-- mobile-friendly
+### 3. GPU Offscreen Canvas Rendering
+Dynamic rendering techniques like `shadowBlur` and complex radial gradients (used for floating glowing sparks and celebration gold coins) are CPU-bound and cause layout reflow/composite lag. We pre-render these assets onto hidden offscreen canvas buffers at startup, allowing the active animation frame loops to copy them via hardware-accelerated `drawImage` scaling at a locked 60 FPS.
+
+### 4. Delayed Cinematic Loading
+To prevent the heavy 6.28 MB cinematic video from blocking the preloading of critical gameplay textures, its `autoplay` attribute is omitted. It buffers quietly in the background and plays programmatically.
+
+### 5. Conditional Dev-Environment Security
+The debugger detector is bypassed locally (`localhost`, `127.0.0.1`, `file:`) to allow smooth framework profiling and debugging.
 
 ---
 
